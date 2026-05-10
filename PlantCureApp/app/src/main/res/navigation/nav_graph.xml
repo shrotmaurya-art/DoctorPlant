@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <!-- Home Screen (Dashboard) -->
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.plantcure.ai.ui.home.HomeFragment"
+        android:label="@string/nav_home"
+        tools:layout="@layout/fragment_home">
+
+        <action
+            android:id="@+id/action_home_to_camera"
+            app:destination="@id/cameraFragment" />
+            
+        <action
+            android:id="@+id/action_home_to_result"
+            app:destination="@id/resultFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+
+    <!-- Camera Screen -->
+    <fragment
+        android:id="@+id/cameraFragment"
+        android:name="com.plantcure.ai.ui.home.CameraFragment"
+        android:label="Camera"
+        tools:layout="@layout/fragment_camera">
+
+        <action
+            android:id="@+id/action_camera_to_result"
+            app:destination="@id/resultFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@id/homeFragment" />
+    </fragment>
+
+    <!-- History Screen -->
+    <fragment
+        android:id="@+id/historyFragment"
+        android:name="com.plantcure.ai.ui.history.HistoryFragment"
+        android:label="@string/nav_history"
+        tools:layout="@layout/fragment_history">
+
+        <action
+            android:id="@+id/action_history_to_result"
+            app:destination="@id/resultFragment" />
+    </fragment>
+
+    <!-- Market Prices Screen -->
+    <fragment
+        android:id="@+id/marketFragment"
+        android:name="com.plantcure.ai.ui.market.MarketFragment"
+        android:label="@string/nav_market"
+        tools:layout="@layout/fragment_market" />
+
+    <!-- Community Feed Screen -->
+    <fragment
+        android:id="@+id/communityFragment"
+        android:name="com.plantcure.ai.ui.community.CommunityFragment"
+        android:label="@string/nav_community"
+        tools:layout="@layout/fragment_community" />
+
+    <!-- Result Screen (navigated to from Home or History) -->
+    <fragment
+        android:id="@+id/resultFragment"
+        android:name="com.plantcure.ai.ui.result.ResultFragment"
+        android:label="@string/result_title"
+        tools:layout="@layout/fragment_result">
+
+        <!-- Type-safe arguments -->
+        <argument
+            android:name="imagePath"
+            app:argType="string" />
+
+        <argument
+            android:name="diseaseLabel"
+            app:argType="string" />
+
+        <argument
+            android:name="confidence"
+            app:argType="float" />
+
+        <argument
+            android:name="scanId"
+            app:argType="integer"
+            android:defaultValue="-1" />
+    </fragment>
+
+</navigation>

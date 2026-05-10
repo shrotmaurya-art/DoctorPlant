@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- PlantCure AI Material Design 3 Theme -->
+    <style name="Theme.PlantCureAI" parent="Theme.Material3.Light.NoActionBar">
+        <!-- Primary Brand Colors -->
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorOnPrimary">@color/on_primary</item>
+        <item name="colorPrimaryContainer">@color/primary_light</item>
+
+        <!-- Secondary / Accent Colors -->
+        <item name="colorSecondary">@color/accent</item>
+        <item name="colorOnSecondary">@color/on_accent</item>
+        <item name="colorSecondaryContainer">@color/accent_light</item>
+
+        <!-- Error Colors -->
+        <item name="colorError">@color/severity_high</item>
+
+        <!-- Background & Surface -->
+        <item name="android:colorBackground">@color/background</item>
+        <item name="colorSurface">@color/surface</item>
+        <item name="colorSurfaceVariant">@color/surface_variant</item>
+
+        <!-- Status & Navigation Bars -->
+        <item name="android:statusBarColor">@color/status_bar</item>
+        <item name="android:navigationBarColor">@color/surface</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar">true</item>
+
+        <!-- Default Text Colors -->
+        <item name="android:textColorPrimary">@color/text_primary</item>
+        <item name="android:textColorSecondary">@color/text_secondary</item>
+        <item name="android:textColorHint">@color/text_hint</item>
+
+        <!-- Shape -->
+        <item name="shapeAppearanceSmallComponent">@style/PlantCure.ShapeSmall</item>
+        <item name="shapeAppearanceMediumComponent">@style/PlantCure.ShapeMedium</item>
+        <item name="shapeAppearanceLargeComponent">@style/PlantCure.ShapeLarge</item>
+    </style>
+
+    <!-- Shape Appearances -->
+    <style name="PlantCure.ShapeSmall" parent="ShapeAppearance.Material3.SmallComponent">
+        <item name="cornerSize">8dp</item>
+    </style>
+
+    <style name="PlantCure.ShapeMedium" parent="ShapeAppearance.Material3.MediumComponent">
+        <item name="cornerSize">12dp</item>
+    </style>
+
+    <style name="PlantCure.ShapeLarge" parent="ShapeAppearance.Material3.LargeComponent">
+        <item name="cornerSize">16dp</item>
+    </style>
+
+    <!-- Toolbar Style -->
+    <style name="PlantCure.Toolbar" parent="Widget.Material3.Toolbar">
+        <item name="android:background">@color/primary_dark</item>
+        <item name="titleTextColor">@color/on_primary</item>
+        <item name="subtitleTextColor">@color/on_primary</item>
+    </style>
+
+    <!-- Severity Badge Styles -->
+    <style name="PlantCure.Chip.Severity.High" parent="Widget.Material3.Chip.Assist">
+        <item name="chipBackgroundColor">@color/severity_high</item>
+        <item name="android:textColor">@color/on_primary</item>
+    </style>
+
+    <style name="PlantCure.Chip.Severity.Medium" parent="Widget.Material3.Chip.Assist">
+        <item name="chipBackgroundColor">@color/severity_medium</item>
+        <item name="android:textColor">@color/text_primary</item>
+    </style>
+
+    <style name="PlantCure.Chip.Severity.Low" parent="Widget.Material3.Chip.Assist">
+        <item name="chipBackgroundColor">@color/severity_low</item>
+        <item name="android:textColor">@color/on_primary</item>
+    </style>
+
+    <!-- Language Radio Button Style (Settings Screen) -->
+    <style name="LanguageRadioButton" parent="Widget.AppCompat.CompoundButton.RadioButton">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingVertical">14dp</item>
+        <item name="android:paddingHorizontal">16dp</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:buttonTint">@color/primary</item>
+        <item name="android:layoutDirection">rtl</item>
+    </style>
+</resources>

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">PlantCure AI</string>
+
+    <!-- Bottom Navigation -->
+    <string name="nav_home">होम</string>
+    <string name="nav_history">इतिहास</string>
+    <string name="nav_market">बाज़ार</string>
+    <string name="nav_community">समुदाय</string>
+
+    <!-- Home Screen -->
+    <string name="scan_plant">अपने पौधे को स्कैन करें</string>
+    <string name="upload_photo">फ़ोटो अपलोड करें</string>
+    <string name="view_history">इतिहास देखें</string>
+    <string name="weather_risk_title">स्थानीय मौसम जोखिम</string>
+
+    <!-- Result Screen -->
+    <string name="result_title">पहचान परिणाम</string>
+    <string name="tab_about">जानकारी</string>
+    <string name="tab_symptoms">लक्षण</string>
+    <string name="tab_prevention">रोकथाम</string>
+    <string name="tab_market">बाज़ार</string>
+    <string name="confidence_label">विश्वास</string>
+    <string name="severity_high">उच्च गंभीरता</string>
+    <string name="severity_medium">मध्यम गंभीरता</string>
+    <string name="severity_low">कम गंभीरता</string>
+    <string name="share_result">परिणाम साझा करें</string>
+    <string name="listen_result">सुनें</string>
+    <string name="find_shops">पास की दुकानें खोजें</string>
+    <string name="ask_agribot">AgriBot से पूछें</string>
+
+    <!-- About Tab -->
+    <string name="cause_type">कारण</string>
+    <string name="affected_crop">प्रभावित फसल</string>
+    <string name="weather_trigger">मौसम ट्रिगर</string>
+    <string name="recovery_time">ठीक होने का समय</string>
+    <string name="weeks">%d सप्ताह</string>
+
+    <!-- Prevention Tab -->
+    <string name="organic_treatment">जैविक उपचार</string>
+    <string name="chemical_treatment">रासायनिक उपचार</string>
+    <string name="dosage_warning">⚠ सुरक्षा चेतावनी</string>
+
+    <!-- Market Tab -->
+    <string name="mandi_prices_title">मंडी भाव</string>
+    <string name="per_quintal">₹/क्विंटल</string>
+    <string name="min_price">न्यूनतम</string>
+    <string name="max_price">अधिकतम</string>
+    <string name="modal_price">मोडल</string>
+    <string name="price_trend_up">↑ भाव बढ़ रहा है</string>
+    <string name="price_trend_down">↓ भाव गिर रहा है</string>
+    <string name="offline_banner">ऑफ़लाइन — भाव %s पहले अपडेट किए गए</string>
+    <string name="set_price_alert">भाव अलर्ट सेट करें</string>
+
+    <!-- Chat Screen -->
+    <string name="agribot_title">AgriBot</string>
+    <string name="chat_hint">इस बीमारी के बारे में पूछें…</string>
+    <string name="chat_offline">चैटबॉट के लिए इंटरनेट ज़रूरी है</string>
+    <string name="suggestion_organic">जैविक उपचार?</string>
+    <string name="suggestion_recovery">ठीक होने में कितना समय?</string>
+    <string name="suggestion_pesticide">सबसे अच्छा कीटनाशक?</string>
+    <string name="suggestion_contagious">क्या यह संक्रामक है?</string>
+    <string name="chat_disclaimer">व्यक्तिगत या वित्तीय जानकारी साझा न करें।</string>
+
+    <!-- History Screen -->
+    <string name="history_title">स्कैन इतिहास</string>
+    <string name="search_hint">बीमारियाँ, फसलें खोजें…</string>
+    <string name="filter_all">सभी</string>
+    <string name="filter_fungal">फफूंद</string>
+    <string name="filter_bacterial">बैक्टीरियल</string>
+    <string name="filter_viral">वायरल</string>
+    <string name="filter_high_severity">उच्च गंभीरता</string>
+    <string name="total_scans">कुल स्कैन</string>
+    <string name="most_common">सबसे आम</string>
+    <string name="this_month">इस महीने</string>
+    <string name="export_csv">CSV निर्यात करें</string>
+    <string name="undo">पूर्ववत करें</string>
+    <string name="scan_deleted">स्कैन हटाया गया</string>
+
+    <!-- Calendar Screen -->
+    <string name="treatment_schedule">उपचार अनुसूची</string>
+    <string name="next_treatment">अगला उपचार</string>
+    <string name="mark_done">पूरा हुआ</string>
+    <string name="mark_skipped">छोड़ें</string>
+    <string name="view_schedule">अनुसूची देखें</string>
+
+    <!-- Community Feed -->
+    <string name="community_title">समुदाय फ़ीड</string>
+    <string name="tab_feed">फ़ीड</string>
+    <string name="tab_map">बीमारी मानचित्र</string>
+    <string name="share_detection">मेरी पहचान साझा करें</string>
+    <string name="km_away">%s किमी दूर</string>
+    <string name="community_alert">इस सप्ताह आपके क्षेत्र में %d मामले रिपोर्ट हुए</string>
+
+    <!-- Shop Locator -->
+    <string name="nearby_shops">पास की कृषि दुकानें</string>
+    <string name="filter_pesticide">कीटनाशक</string>
+    <string name="filter_fertilizer">खाद</string>
+    <string name="filter_seeds">बीज</string>
+    <string name="directions">दिशा-निर्देश</string>
+    <string name="call_shop">कॉल</string>
+    <string name="no_shops_found">पास में कोई दुकान नहीं मिली</string>
+
+    <!-- Settings -->
+    <string name="settings_title">सेटिंग्स</string>
+    <string name="language_title">ऐप भाषा</string>
+    <string name="voice_output">आवाज़ आउटपुट</string>
+    <string name="enable_voice">परिणामों पर आवाज़ आउटपुट सक्षम करें</string>
+    <string name="speech_speed">बोलने की गति</string>
+    <string name="notifications">सूचनाएँ</string>
+    <string name="weather_alerts">मौसम जोखिम अलर्ट</string>
+    <string name="treatment_reminders">उपचार अनुस्मारक</string>
+    <string name="community_alerts">समुदाय बीमारी अलर्ट</string>
+    <string name="price_alerts">बाज़ार भाव अलर्ट</string>
+    <string name="app_version">PlantCure AI v%s</string>
+    <string name="made_with_love">भारतीय किसानों के लिए 🌿 से बनाया गया</string>
+
+    <!-- Common -->
+    <string name="retry">पुनः प्रयास</string>
+    <string name="cancel">रद्द करें</string>
+    <string name="save">सहेजें</string>
+    <string name="error_no_internet">इंटरनेट कनेक्शन नहीं है</string>
+    <string name="error_generic">कुछ गलत हो गया। कृपया पुनः प्रयास करें।</string>
+    <string name="loading">लोड हो रहा है…</string>
+    <string name="permission_camera">पौधों को स्कैन करने के लिए कैमरा अनुमति आवश्यक है</string>
+    <string name="permission_location">स्थान आपके स्कैन को टैग करने और पास की दुकानें खोजने में मदद करता है</string>
+</resources>

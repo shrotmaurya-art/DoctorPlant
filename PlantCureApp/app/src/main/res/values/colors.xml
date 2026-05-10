@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- PlantCure AI Material Design 3 Theme -->
+    <!-- Colors matching PRD: Primary #1B6B2F, Accent #F57F17 -->
+
+    <!-- Primary Green Palette -->
+    <color name="primary">#1B6B2F</color>
+    <color name="primary_dark">#0D4A1F</color>
+    <color name="primary_light">#E8F5E9</color>
+    <color name="on_primary">#FFFFFF</color>
+
+    <!-- Accent / Secondary Orange Palette -->
+    <color name="accent">#F57F17</color>
+    <color name="accent_light">#FFF8E1</color>
+    <color name="on_accent">#FFFFFF</color>
+
+    <!-- Severity Colors -->
+    <color name="severity_high">#B71C1C</color>
+    <color name="severity_high_bg">#FFEBEE</color>
+    <color name="severity_medium">#F9A825</color>
+    <color name="severity_medium_bg">#FFF8E1</color>
+    <color name="severity_low">#2E7D32</color>
+    <color name="severity_low_bg">#E8F5E9</color>
+
+    <!-- Surface / Background -->
+    <color name="background">#FAFAFA</color>
+    <color name="surface">#FFFFFF</color>
+    <color name="surface_variant">#E0E4DB</color>
+
+    <!-- Text -->
+    <color name="text_primary">#212121</color>
+    <color name="text_secondary">#555555</color>
+    <color name="text_hint">#9E9E9E</color>
+
+    <!-- Status Bar / Navigation -->
+    <color name="status_bar">#0D4A1F</color>
+
+    <!-- Chat Bubble Colors -->
+    <color name="chat_user_bubble">#1B6B2F</color>
+    <color name="chat_ai_bubble">#FFFFFF</color>
+
+    <!-- Offline Banner -->
+    <color name="offline_banner">#FFF3E0</color>
+    <color name="offline_text">#E65100</color>
+
+    <!-- Stitch Design Colors -->
+    <color name="primary_container">#1b6b2f</color>
+    <color name="on_primary_container">#99e99e</color>
+    <color name="on_surface_variant">#40493f</color>
+    <color name="surface_container_lowest">#ffffff</color>
+    <color name="outline_variant">#bfc9bc</color>
+    <color name="on_surface">#181d18</color>
+    <color name="secondary_container">#fe851f</color>
+    <color name="on_secondary_container">#612d00</color>
+    <color name="secondary_fixed">#ffdcc7</color>
+    <color name="on_secondary_fixed_variant">#723600</color>
+    <color name="surface_container_low">#f1f5ec</color>
+    <color name="outline">#707a6e</color>
+    <color name="error">#ba1a1a</color>
+    <color name="error_container">#ffdad6</color>
+    <color name="on_error_container">#93000a</color>
+    <color name="surface_container">#ebefe6</color>
+</resources>

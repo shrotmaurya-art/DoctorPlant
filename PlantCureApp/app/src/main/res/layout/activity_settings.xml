@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+    <!-- Top AppBar Component -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/primary">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:title="Settings"
+            app:titleTextColor="@color/on_primary"
+            app:navigationIcon="@android:drawable/ic_menu_revert" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Profile Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_rounded_surface_low"
+                android:elevation="2dp"
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:gravity="center_vertical">
+
+                <FrameLayout
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:background="@drawable/bg_rounded_primary"
+                    android:backgroundTint="@color/primary_container">
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_gravity="center"
+                        android:src="@android:drawable/ic_menu_myplaces"
+                        app:tint="@color/on_primary_container" />
+                </FrameLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="16dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Farmer Profile"
+                        android:textColor="@color/on_surface"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Ramesh Kumar"
+                        android:textColor="@color/on_surface_variant"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <Button
+                    style="@style/Widget.Material3.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Edit Profile"
+                    android:textColor="@color/primary" />
+            </LinearLayout>
+
+            <!-- Language Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="24dp"
+                android:gravity="center_vertical">
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@android:drawable/ic_menu_sort_alphabetically"
+                    app:tint="@color/primary" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="App Language"
+                    android:textColor="@color/on_surface"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/bg_rounded_surface_low"
+                android:elevation="2dp"
+                android:orientation="vertical">
+
+                <RadioGroup
+                    android:id="@+id/rgLanguage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    
+                    <RadioButton android:id="@+id/rbEnglish" android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="16dp" android:text="English" android:textSize="18sp" android:buttonTint="@color/primary" />
+                    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/outline_variant" />
+                    <RadioButton android:id="@+id/rbHindi" android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="16dp" android:text="हिन्दी" android:textSize="18sp" android:buttonTint="@color/primary" />
+                    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/outline_variant" />
+                    <RadioButton android:id="@+id/rbMarathi" android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="16dp" android:text="मराठी" android:textSize="18sp" android:buttonTint="@color/primary" />
+                    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/outline_variant" />
+                    <RadioButton android:id="@+id/rbTelugu" android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="16dp" android:text="తెలుగు" android:textSize="18sp" android:buttonTint="@color/primary" />
+                    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/outline_variant" />
+                    <RadioButton android:id="@+id/rbTamil" android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="16dp" android:text="தமிழ்" android:textSize="18sp" android:buttonTint="@color/primary" />
+                    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/outline_variant" />
+                    <RadioButton android:id="@+id/rbPunjabi" android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="16dp" android:text="ਪੰਜਾਬੀ" android:textSize="18sp" android:buttonTint="@color/primary" />
+                    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/outline_variant" />
+                    <RadioButton android:id="@+id/rbKannada" android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="16dp" android:text="ಕನ್ನಡ" android:textSize="18sp" android:buttonTint="@color/primary" />
+                </RadioGroup>
+            </LinearLayout>
+
+            <!-- Voice Settings -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="24dp"
+                android:gravity="center_vertical">
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@android:drawable/ic_lock_silent_mode_off"
+                    app:tint="@color/primary" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="Voice Output"
+                    android:textColor="@color/on_surface"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/bg_rounded_surface_low"
+                android:elevation="2dp"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <com.google.android.material.materialswitch.MaterialSwitch
+                    android:id="@+id/switchTTS"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Enable voice output on results"
+                    android:textSize="18sp"
+                    android:checked="true"
+                    app:switchMinWidth="50dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Speech speed"
+                    android:textColor="@color/on_surface_variant"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.slider.Slider
+                    android:id="@+id/sliderSpeed"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:valueFrom="0.5"
+                    android:valueTo="2.0"
+                    android:value="1.0" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Slow" android:textColor="@color/on_surface_variant" android:textSize="14sp" />
+                    <Space android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" />
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Fast" android:textColor="@color/on_surface_variant" android:textSize="14sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Notification Settings -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="24dp"
+                android:gravity="center_vertical">
+                <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@android:drawable/ic_popup_reminder" app:tint="@color/primary" />
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="8dp" android:text="Notifications" android:textColor="@color/on_surface" android:textSize="20sp" android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/bg_rounded_surface_low"
+                android:elevation="2dp"
+                android:orientation="vertical">
+
+                <CheckBox android:id="@+id/cbWeather" android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="16dp" android:text="Weather risk alerts" android:textSize="18sp" android:buttonTint="@color/primary" />
+                <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/outline_variant" />
+                <CheckBox android:id="@+id/cbTreatment" android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="16dp" android:text="Treatment reminders" android:textSize="18sp" android:buttonTint="@color/primary" />
+                <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/outline_variant" />
+                <CheckBox android:id="@+id/cbCommunity" android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="16dp" android:text="Community disease alerts" android:textSize="18sp" android:buttonTint="@color/primary" />
+                <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/outline_variant" />
+                <CheckBox android:id="@+id/cbMarket" android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="16dp" android:text="Market price alerts" android:textSize="18sp" android:buttonTint="@color/primary" />
+            </LinearLayout>
+
+            <!-- Footer -->
+            <TextView
+                android:id="@+id/tvVersion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:gravity="center"
+                android:text="PlantCure AI v1.0\nMade with 🌿 for Indian Farmers"
+                android:textColor="@color/on_surface_variant"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
