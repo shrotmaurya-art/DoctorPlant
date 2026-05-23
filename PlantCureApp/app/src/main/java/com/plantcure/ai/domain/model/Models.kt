@@ -48,6 +48,7 @@ data class WeatherData(
     val humidity: Int,
     val windSpeed: Float,
     val description: String,
+    val condition: String = "Clear",       // "Rain", "Clear", "Clouds", "Thunderstorm", etc.
     val cityName: String,
     val riskLevel: RiskLevel,
     val riskMessage: String,

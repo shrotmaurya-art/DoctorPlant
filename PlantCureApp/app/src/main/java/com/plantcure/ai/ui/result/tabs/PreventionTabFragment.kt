@@ -1,5 +1,6 @@
 package com.plantcure.ai.ui.result.tabs
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -41,6 +42,11 @@ class PreventionTabFragment : Fragment() {
                 chemicalAdapter.submitList(it.preventionChemical)
                 binding.tvDosageSafety.text = it.dosageSafety
             }
+        }
+
+        binding.btnFindShops.setOnClickListener {
+            val intent = Intent(requireContext(), com.plantcure.ai.ui.shop.ShopLocatorActivity::class.java)
+            startActivity(intent)
         }
     }
 

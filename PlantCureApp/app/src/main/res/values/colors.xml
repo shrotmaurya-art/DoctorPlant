@@ -60,4 +60,5 @@
     <color name="error_container">#ffdad6</color>
     <color name="on_error_container">#93000a</color>
     <color name="surface_container">#ebefe6</color>
+    <color name="surface_container_highest">#e0e4db</color>
 </resources>

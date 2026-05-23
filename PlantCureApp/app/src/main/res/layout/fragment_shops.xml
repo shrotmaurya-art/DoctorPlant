@@ -5,20 +5,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background">
+    android:background="#F0F7F0">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/primary">
+        android:background="#1B6B2F">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:title="Nearby Agri Shops"
-            app:titleTextColor="@color/on_primary"
-            app:navigationIcon="@android:drawable/ic_menu_revert" />
+            app:titleTextColor="@android:color/white"
+            app:navigationIcon="@drawable/ic_arrow_back"
+            app:navigationIconTint="@android:color/white" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -32,62 +33,37 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.4"
-            android:background="@color/surface_container">
+            android:layout_weight="0.45">
 
-            <!-- Fake Map Image -->
-            <ImageView
+            <!-- OSMDroid Map -->
+            <org.osmdroid.views.MapView
+                android:id="@+id/mapView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:src="@android:drawable/dialog_frame"
-                app:tint="@color/outline_variant" />
+                android:layout_height="match_parent" />
 
-            <!-- Fake Pins -->
-            <ImageView
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_gravity="center"
-                android:src="@android:drawable/ic_menu_mylocation"
-                app:tint="@android:color/holo_blue_light" />
-
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginStart="60dp"
-                android:layout_marginTop="40dp"
-                android:src="@drawable/ic_location"
-                app:tint="@color/primary" />
-
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_gravity="end"
-                android:layout_marginEnd="80dp"
-                android:layout_marginTop="100dp"
-                android:src="@drawable/ic_location"
-                app:tint="@color/primary" />
-
-            <!-- Locate Me FAB -->
+            <!-- Find Near Me FAB -->
             <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/btnLocateMe"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|end"
                 android:layout_margin="16dp"
                 app:srcCompat="@android:drawable/ic_menu_mylocation"
-                app:tint="@color/on_surface_variant"
-                app:backgroundTint="@color/surface_container_lowest"
-                app:fabSize="mini" />
+                app:tint="@android:color/white"
+                app:backgroundTint="#1B6B2F"
+                app:fabSize="normal"
+                app:elevation="6dp" />
         </FrameLayout>
 
         <!-- Filter Chips -->
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/background"
+            android:background="@android:color/white"
             android:paddingHorizontal="16dp"
             android:paddingVertical="8dp"
-            android:scrollbars="none">
+            android:scrollbars="none"
+            android:elevation="2dp">
 
             <com.google.android.material.chip.ChipGroup
                 android:layout_width="wrap_content"
@@ -121,15 +97,33 @@
             </com.google.android.material.chip.ChipGroup>
         </HorizontalScrollView>
 
-        <!-- List Section -->
+        <!-- Shop List Section -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvShops"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.6"
+            android:layout_weight="0.55"
             android:padding="16dp"
             android:clipToPadding="false"
             tools:listitem="@layout/item_shop" />
+
+        <!-- Shimmer Loading -->
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmerLayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.55"
+            android:padding="16dp"
+            android:visibility="gone">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <include layout="@layout/item_shop" />
+                <include layout="@layout/item_shop" />
+                <include layout="@layout/item_shop" />
+            </LinearLayout>
+        </com.facebook.shimmer.ShimmerFrameLayout>
 
     </LinearLayout>
 

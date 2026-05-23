@@ -20,30 +20,6 @@
             app:titleTextColor="@color/on_primary"
             app:menu="@menu/menu_market" />
 
-        <!-- Offline Banner -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#FFF8E1"
-            android:orientation="horizontal"
-            android:padding="12dp"
-            android:gravity="center_vertical">
-            
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@android:drawable/ic_menu_recent_history"
-                app:tint="#795548" />
-                
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:text="Offline — prices last updated 2 hours ago"
-                android:textColor="#795548"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-        </LinearLayout>
 
         <!-- Filters Canvas -->
         <LinearLayout
@@ -51,8 +27,35 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:background="@color/surface"
-            android:paddingVertical="16dp">
+            android:paddingVertical="12dp">
 
+            <!-- APMC Disclaimer -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/bg_alert_info"
+                android:padding="8dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+                
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@android:drawable/ic_dialog_info"
+                    app:tint="@color/on_secondary_container" />
+                    
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="These are real APMC wholesale auction prices from Government of India data."
+                    android:textSize="12sp"
+                    android:textColor="@color/on_secondary_container" />
+            </LinearLayout>
+
+            <!-- Crop Chips -->
             <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -92,66 +95,174 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Rice" />
-                        
+
                     <com.google.android.material.chip.Chip
                         style="@style/Widget.Material3.Chip.Filter"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Cotton" />
+
+                    <com.google.android.material.chip.Chip
+                        style="@style/Widget.Material3.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Onion" />
+
+                    <com.google.android.material.chip.Chip
+                        style="@style/Widget.Material3.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Soybean" />
+
+                    <com.google.android.material.chip.Chip
+                        style="@style/Widget.Material3.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Maize" />
+
+                    <com.google.android.material.chip.Chip
+                        style="@style/Widget.Material3.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Sugarcane" />
                 </com.google.android.material.chip.ChipGroup>
             </HorizontalScrollView>
 
-            <!-- State Selector -->
+            <!-- Location Selectors: State + District -->
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:background="@drawable/bg_rounded_surface_low"
+                android:orientation="horizontal"
                 android:paddingHorizontal="16dp"
-                android:paddingVertical="8dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:paddingTop="12dp"
+                android:gravity="center_vertical">
 
                 <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:id="@+id/btnAutoLocate"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
                     android:src="@android:drawable/ic_menu_mylocation"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:focusable="true"
                     app:tint="@color/primary" />
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <!-- State Dropdown -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilState"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:layout_marginStart="8dp"
-                    android:text="Maharashtra"
-                    android:textColor="@color/on_surface"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    android:hint="State">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/actvState"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="none"
+                        android:text="Maharashtra"
+                        android:textSize="13sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- District Dropdown -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilDistrict"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="8dp"
+                    android:hint="District (optional)">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/actvDistrict"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="none"
+                        android:textSize="13sp" />
+                </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
         </LinearLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <!-- Price Cards List -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvMarket"
+    <!-- List Container -->
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="16dp"
-        android:clipToPadding="false"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:listitem="@layout/item_market_price" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <!-- Notifications FAB -->
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabNotifications"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="16dp"
-        android:layout_marginBottom="80dp"
-        app:srcCompat="@android:drawable/ic_popup_reminder"
-        app:tint="@color/on_secondary_container"
-        app:backgroundTint="@color/secondary_container"
-        app:fabSize="auto" />
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefresh"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvMarketPrices"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:paddingHorizontal="16dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="80dp"
+                android:layoutAnimation="@anim/layout_animation_fall_down" />
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <!-- Shimmer Loading -->
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmerLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingHorizontal="16dp"
+            android:paddingTop="8dp"
+            android:visibility="gone">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <include layout="@layout/item_market_price" />
+                <include layout="@layout/item_market_price" />
+                <include layout="@layout/item_market_price" />
+                <include layout="@layout/item_market_price" />
+            </LinearLayout>
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+        <!-- Empty State -->
+        <LinearLayout
+            android:id="@+id/emptyStateLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:visibility="gone">
+            
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/lottieEmpty"
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+                app:lottie_rawRes="@raw/anim_empty_box"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true" />
+                
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No prices found"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/on_surface" />
+                
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Try selecting a different district or crop."
+                android:textColor="@color/on_surface_variant" />
+        </LinearLayout>
+        
+    </FrameLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -77,7 +77,7 @@ class PlantDiseaseClassifier @Inject constructor(
             interp.run(processedImage.buffer, output)
 
             // Map outputs to labeled results, sorted by confidence descending
-            output[0]
+            val topResults = output[0]
                 .mapIndexed { index, score ->
                     DetectionResult(
                         label = PLANT_VILLAGE_LABELS[index],
@@ -88,6 +88,16 @@ class PlantDiseaseClassifier @Inject constructor(
                 .sortedByDescending { it.confidence }
                 .take(3)
 
+            if (topResults.isNotEmpty() && topResults[0].confidence < 0.65f) {
+                listOf(DetectionResult(
+                    label = "not_a_plant",
+                    confidence = topResults[0].confidence,
+                    severity = "None"
+                ))
+            } else {
+                topResults
+            }
+
         } catch (oom: OutOfMemoryError) {
             // OOM recovery: GC and retry once
             System.gc()
@@ -97,7 +107,7 @@ class PlantDiseaseClassifier @Inject constructor(
                 val processedImage = imageProcessor.process(tensorImage)
                 val output = Array(1) { FloatArray(PLANT_VILLAGE_LABELS.size) }
                 interp.run(processedImage.buffer, output)
-                output[0]
+                val topResults = output[0]
                     .mapIndexed { index, score ->
                         DetectionResult(
                             label = PLANT_VILLAGE_LABELS[index],
@@ -107,6 +117,16 @@ class PlantDiseaseClassifier @Inject constructor(
                     }
                     .sortedByDescending { it.confidence }
                     .take(3)
+
+                if (topResults.isNotEmpty() && topResults[0].confidence < 0.65f) {
+                    listOf(DetectionResult(
+                        label = "not_a_plant",
+                        confidence = topResults[0].confidence,
+                        severity = "None"
+                    ))
+                } else {
+                    topResults
+                }
             } catch (e: Exception) {
                 throw e
             }

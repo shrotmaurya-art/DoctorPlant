@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="260dp"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="8dp"
+    app:cardBackgroundColor="@android:color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Shop Name -->
+        <TextView
+            android:id="@+id/tvPopupName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="#1B6B2F"
+            android:maxLines="2"
+            android:ellipsize="end" />
+
+        <!-- Address -->
+        <TextView
+            android:id="@+id/tvPopupAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textSize="13sp"
+            android:textColor="#666666"
+            android:maxLines="2"
+            android:ellipsize="end" />
+
+        <!-- Rating -->
+        <TextView
+            android:id="@+id/tvPopupRating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:textSize="14sp"
+            android:textColor="#F57F17"
+            android:textStyle="bold" />
+
+        <!-- Action Buttons -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="12dp">
+
+            <Button
+                android:id="@+id/btnPopupDirections"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="4dp"
+                android:text="Directions"
+                android:textSize="12sp"
+                android:textColor="@android:color/white"
+                android:backgroundTint="#2E7D32"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btnPopupCall"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:layout_marginStart="4dp"
+                android:text="Call"
+                android:textSize="12sp"
+                android:textColor="#2E7D32"
+                android:backgroundTint="#E8F5E9"
+                android:textAllCaps="false" />
+        </LinearLayout>
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

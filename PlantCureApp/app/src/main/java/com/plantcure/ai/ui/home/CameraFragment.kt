@@ -26,6 +26,10 @@ import java.io.FileOutputStream
 import java.util.UUID
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
+import android.animation.ObjectAnimator
+import android.animation.ValueAnimator
+import android.view.animation.LinearInterpolator
+import android.view.animation.AccelerateDecelerateInterpolator
 
 /**
  * Extracted Camera screen for live viewfinder and scanning.
@@ -96,11 +100,40 @@ class CameraFragment : Fragment() {
             galleryLauncher.launch("image/*")
         }
 
+        // Bouncy click animations
+        addBouncyClick(binding.btnScan)
+        addBouncyClick(binding.btnGallery)
+
         viewModel.isProcessing.observe(viewLifecycleOwner) { isLoading ->
             binding.progressIndicator.visibility = if (isLoading) View.VISIBLE else View.GONE
             binding.btnScan.isEnabled = !isLoading
             binding.btnGallery.isEnabled = !isLoading
         }
+
+        startLaserAnimation()
+    }
+
+    private fun addBouncyClick(view: View) {
+        view.setOnTouchListener { v, event ->
+            when (event.action) {
+                android.view.MotionEvent.ACTION_DOWN -> {
+                    v.animate().scaleX(0.9f).scaleY(0.9f).setDuration(100).start()
+                }
+                android.view.MotionEvent.ACTION_UP, android.view.MotionEvent.ACTION_CANCEL -> {
+                    v.animate().scaleX(1f).scaleY(1f).setDuration(100).start()
+                }
+            }
+            false
+        }
+    }
+
+    private fun startLaserAnimation() {
+        val animator = ObjectAnimator.ofFloat(binding.laserLine, "translationY", 0f, 600f)
+        animator.duration = 2000
+        animator.repeatCount = ValueAnimator.INFINITE
+        animator.repeatMode = ValueAnimator.REVERSE
+        animator.interpolator = AccelerateDecelerateInterpolator()
+        animator.start()
     }
 
     private fun startCamera() {
@@ -187,6 +220,17 @@ class CameraFragment : Fragment() {
 
                 if (results.isNotEmpty()) {
                     val top = results.first()
+                    
+                    if (top.label == "not_a_plant") {
+                        existingPath?.let { java.io.File(it).delete() }
+                        com.google.android.material.dialog.MaterialAlertDialogBuilder(requireContext())
+                            .setTitle("No Plant Detected")
+                            .setMessage("Please point the camera directly at a plant leaf in good lighting.")
+                            .setPositiveButton("OK", null)
+                            .show()
+                        return@launch
+                    }
+
                     val imagePath = existingPath ?: withContext(Dispatchers.IO) {
                         val file = File(requireContext().filesDir, "scans/${UUID.randomUUID()}.jpg")
                         file.parentFile?.mkdirs()

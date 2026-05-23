@@ -35,6 +35,7 @@ android {
         buildConfigField("String", "OPENWEATHER_API_KEY", "\"${localProperties["OPENWEATHER_API_KEY"] ?: ""}\"")
         buildConfigField("String", "GOOGLE_MAPS_API_KEY", "\"$mapsApiKey\"")
         buildConfigField("String", "AGMARKNET_API_KEY", "\"${localProperties["AGMARKNET_API_KEY"] ?: ""}\"")
+        buildConfigField("String", "OPENAI_API_KEY", "\"${localProperties["OPENAI_API_KEY"] ?: ""}\"")
 
         manifestPlaceholders["GOOGLE_MAPS_API_KEY"] = mapsApiKey
     }
@@ -137,12 +138,19 @@ dependencies {
     implementation("com.google.android.libraries.places:places:4.1.0")
     implementation("com.google.maps.android:android-maps-utils:3.8.2")
 
+    // ── OSMDroid (OpenStreetMap — free, no API key) ──
+    implementation("org.osmdroid:osmdroid-android:6.1.18")
+
     // ── Firebase ──
     implementation(platform("com.google.firebase:firebase-bom:33.7.0"))
     implementation("com.google.firebase:firebase-firestore-ktx")
     implementation("com.google.firebase:firebase-messaging-ktx")
     implementation("com.google.firebase:firebase-auth-ktx")
     implementation("com.google.firebase:firebase-crashlytics-ktx")
+
+    // ── Animations ──
+    implementation("com.airbnb.android:lottie:6.4.0")
+    implementation("com.facebook.shimmer:shimmer:0.5.0")
 
     // ── Image Loading (Glide) ──
     implementation("com.github.bumptech.glide:glide:4.16.0")

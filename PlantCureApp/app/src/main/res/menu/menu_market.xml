@@ -2,8 +2,23 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/action_filter"
+        android:id="@+id/action_sort"
         android:icon="@android:drawable/ic_menu_sort_by_size"
-        android:title="Filter"
-        app:showAsAction="ifRoom" />
+        android:title="Sort"
+        app:showAsAction="ifRoom">
+        <menu>
+            <item
+                android:id="@+id/sort_price_high"
+                android:title="Highest Price First" />
+            <item
+                android:id="@+id/sort_price_low"
+                android:title="Lowest Price First" />
+            <item
+                android:id="@+id/sort_name"
+                android:title="Sort by Name" />
+            <item
+                android:id="@+id/sort_none"
+                android:title="Default Order" />
+        </menu>
+    </item>
 </menu>

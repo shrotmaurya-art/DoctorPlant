@@ -7,6 +7,9 @@
     android:layout_marginBottom="16dp"
     android:background="@drawable/bg_rounded_surface_low"
     android:orientation="horizontal"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground"
     android:padding="16dp">
 
     <!-- Date Block -->

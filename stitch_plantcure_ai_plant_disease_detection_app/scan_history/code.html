@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Scan History - PlantCure AI</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-fixed-variant": "#723600",
+                        "surface-container-low": "#f1f5ec",
+                        "on-error-container": "#93000a",
+                        "background": "#f7fbf2",
+                        "on-surface": "#181d18",
+                        "tertiary-fixed-dim": "#98d59c",
+                        "outline": "#707a6e",
+                        "secondary-fixed-dim": "#ffb787",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-container": "#612d00",
+                        "error": "#ba1a1a",
+                        "surface-container-highest": "#e0e4db",
+                        "outline-variant": "#bfc9bc",
+                        "inverse-primary": "#89d88f",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-fixed-variant": "#175125",
+                        "surface-variant": "#e0e4db",
+                        "inverse-surface": "#2d322c",
+                        "primary-container": "#1b6b2f",
+                        "primary-fixed": "#a4f5a9",
+                        "surface-dim": "#d7dbd3",
+                        "tertiary": "#155025",
+                        "on-primary": "#ffffff",
+                        "secondary-fixed": "#ffdcc7",
+                        "on-secondary-fixed": "#311300",
+                        "tertiary-fixed": "#b3f2b6",
+                        "on-surface-variant": "#40493f",
+                        "inverse-on-surface": "#eef2e9",
+                        "surface-container-high": "#e5e9e1",
+                        "on-primary-container": "#99e99e",
+                        "on-error": "#ffffff",
+                        "secondary-container": "#fe851f",
+                        "primary-fixed-dim": "#89d88f",
+                        "surface-tint": "#1d6c30",
+                        "primary": "#00511d",
+                        "on-tertiary-fixed": "#002108",
+                        "on-secondary": "#ffffff",
+                        "secondary": "#964900",
+                        "on-primary-fixed-variant": "#00531d",
+                        "on-primary-fixed": "#002107",
+                        "surface": "#f7fbf2",
+                        "on-tertiary-container": "#a8e6ab",
+                        "on-background": "#181d18",
+                        "surface-container": "#ebefe6",
+                        "surface-bright": "#f7fbf2",
+                        "error-container": "#ffdad6",
+                        "tertiary-container": "#30693a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "touch-target": "48px",
+                        "container-margin": "16px",
+                        "gutter": "16px",
+                        "md": "16px",
+                        "xl": "32px",
+                        "xs": "4px",
+                        "lg": "24px",
+                        "sm": "12px",
+                        "base": "8px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Atkinson Hyperlegible Next"],
+                        "label-lg": ["Atkinson Hyperlegible Next"],
+                        "headline-lg": ["Atkinson Hyperlegible Next"],
+                        "headline-lg-mobile": ["Atkinson Hyperlegible Next"],
+                        "body-md": ["Atkinson Hyperlegible Next"],
+                        "title-lg": ["Atkinson Hyperlegible Next"],
+                        "headline-md": ["Atkinson Hyperlegible Next"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", {"lineHeight": "26px", "fontWeight": "400"}],
+                        "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.1px", "fontWeight": "600"}],
+                        "headline-lg": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "title-lg": ["20px", {"lineHeight": "26px", "fontWeight": "600"}],
+                        "headline-md": ["22px", {"lineHeight": "28px", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #FAFAFA;
+            font-family: 'Atkinson Hyperlegible Next', sans-serif;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface min-h-screen pb-32">
+<!-- TopAppBar -->
+<header class="bg-primary shadow-sm w-full top-0 sticky z-50 flex justify-between items-center h-16 px-container-margin w-full">
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-on-primary hover:bg-white/10 p-2 rounded-full transition-colors active:scale-95">arrow_back</button>
+<h1 class="font-headline-md text-headline-md text-on-primary font-bold">Scan History</h1>
+</div>
+<div class="h-10 w-10 rounded-full overflow-hidden border-2 border-primary-fixed">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="A close-up high-resolution profile portrait of a smiling Indian farmer wearing a traditional turban, set against a blurred lush green farm background. The lighting is warm and natural, suggesting a bright sunny morning. The visual style is clean and professional, using a soft depth of field to emphasize the subject's friendly and trustworthy expression." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAeC_1bjHzuwCEudGjyJegtTWTVltza2Qm62frLb9Q3TW-8qj1ATj3V4Y3D-PFjCcvDLuOlSjQi6io953IWiDGNsT2P4XMSxiKCZGNDn1q_h4VV3tSdy-f_Zyhm3yc3vrReNR8pJsMDCN1r4sO_TdUPI44JTBBsdPJUnMuqyH8K8pXQVgygmcw4Bqy5q-8LCza7bj8nz8PK48zbvAO2S_rzYxVh2ry2Ow19tduZbErzSLKLt0juxaN-nJXKjZM5yTKaiPdU9_iTBg"/>
+</div>
+</header>
+<main class="px-container-margin mt-base space-y-md">
+<!-- Search Bar -->
+<div class="mt-md relative group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-primary transition-colors">search</span>
+<input class="w-full h-14 pl-12 pr-4 bg-white border-2 border-outline-variant rounded-xl focus:border-primary focus:ring-0 text-body-md transition-all shadow-sm" placeholder="Search diseases, crops..." type="text"/>
+</div>
+<!-- Filter Chips -->
+<div class="flex gap-base overflow-x-auto hide-scrollbar py-xs">
+<button class="px-lg py-2 rounded-full bg-primary-container text-on-primary-container font-label-lg whitespace-nowrap active:scale-95 transition-transform">All</button>
+<button class="px-lg py-2 rounded-full bg-white border border-outline-variant text-on-surface-variant font-label-lg whitespace-nowrap hover:bg-surface-container-low active:scale-95 transition-all">Fungal</button>
+<button class="px-lg py-2 rounded-full bg-white border border-outline-variant text-on-surface-variant font-label-lg whitespace-nowrap hover:bg-surface-container-low active:scale-95 transition-all">Bacterial</button>
+<button class="px-lg py-2 rounded-full bg-white border border-outline-variant text-on-surface-variant font-label-lg whitespace-nowrap hover:bg-surface-container-low active:scale-95 transition-all">Viral</button>
+<button class="px-lg py-2 rounded-full bg-white border border-outline-variant text-on-surface-variant font-label-lg whitespace-nowrap hover:bg-surface-container-low active:scale-95 transition-all">High Severity</button>
+</div>
+<!-- Statistics Dashboard Card -->
+<section class="bg-white p-lg rounded-xl shadow-sm border border-outline-variant">
+<div class="flex justify-between items-start mb-lg">
+<h2 class="font-title-lg text-title-lg text-on-surface">Activity Overview</h2>
+<span class="material-symbols-outlined text-primary text-3xl" style="font-variation-settings: 'FILL' 1;">analytics</span>
+</div>
+<div class="grid grid-cols-3 gap-md">
+<div class="flex flex-col">
+<span class="text-on-surface-variant font-label-lg uppercase tracking-wider text-[10px]">Total Scans</span>
+<span class="text-headline-md text-primary font-bold">47</span>
+</div>
+<div class="flex flex-col">
+<span class="text-on-surface-variant font-label-lg uppercase tracking-wider text-[10px]">This Month</span>
+<span class="text-headline-md text-secondary font-bold">12</span>
+</div>
+<div class="flex flex-col">
+<span class="text-on-surface-variant font-label-lg uppercase tracking-wider text-[10px]">Common</span>
+<span class="text-body-md text-on-surface font-bold truncate">Late Blight</span>
+</div>
+</div>
+<div class="mt-lg h-12 flex items-end gap-1 px-1">
+<div class="flex-1 bg-primary-container/20 rounded-t-sm h-[40%]"></div>
+<div class="flex-1 bg-primary-container/20 rounded-t-sm h-[60%]"></div>
+<div class="flex-1 bg-primary-container rounded-t-sm h-[90%]"></div>
+<div class="flex-1 bg-primary-container/20 rounded-t-sm h-[30%]"></div>
+<div class="flex-1 bg-primary-container rounded-t-sm h-[75%]"></div>
+<div class="flex-1 bg-primary-container/20 rounded-t-sm h-[50%]"></div>
+<div class="flex-1 bg-primary-container/20 rounded-t-sm h-[45%]"></div>
+</div>
+</section>
+<!-- History List -->
+<section class="space-y-md">
+<div class="flex justify-between items-center">
+<h2 class="font-title-lg text-title-lg text-on-surface">Recent Scans</h2>
+<button class="text-primary font-label-lg">View All</button>
+</div>
+<!-- Item 1 -->
+<div class="bg-white p-md rounded-xl shadow-sm border border-outline-variant flex gap-md active:scale-[0.98] transition-transform">
+<div class="w-16 h-16 rounded-lg bg-surface-container overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A detailed macro photography shot of a tomato leaf infected with Late Blight, showing dark water-soaked spots and fuzzy white fungal growth. The lighting is sharp and clinical, emphasizing the texture of the disease against the green leaf. The overall style is informative and realistic, following the PlantCure AI professional agricultural aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6IvmQvdvYpgjWSldfjD0qx0kQThGUhd4iu7LotZf4aGNLIwC8lstSZLYiGws2QIDIRKgjeFA8-dyY52F9wpqLQirr80ycKSiUurqqqnhoDDyKBvS_f0HN31LHhBxUCYzd4EQ7Qlv7Fmheh06tZw3TY3cq5rw-ZvddMRl6bGo4rTD26E4h8sYWrZ7gl7t-mE2KkErwieBzp8W4BbFWz0S4_UBCIaGzrXLpzw36gEKe24-TiWybkE5pKcQfdvfJcjF3DPl-O9rpYA"/>
+</div>
+<div class="flex-1 min-w-0">
+<h3 class="font-title-lg text-on-surface truncate">Tomato Late Blight</h3>
+<p class="text-on-surface-variant font-body-md">Tomato</p>
+<p class="text-on-surface-variant font-label-lg text-xs">May 8, 2026</p>
+</div>
+<div class="flex flex-col items-end gap-base">
+<span class="px-sm py-0.5 bg-red-100 text-red-700 text-[10px] font-bold rounded-full uppercase">High</span>
+<span class="text-on-surface-variant font-label-lg text-[10px]">92% Match</span>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="bg-white p-md rounded-xl shadow-sm border border-outline-variant flex gap-md active:scale-[0.98] transition-transform">
+<div class="w-16 h-16 rounded-lg bg-surface-container overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A close-up high-quality photo of a cucumber plant showing signs of bacterial wilt, with leaves drooping and turning yellow. The background is a clean, sunlit garden setting with high clarity and contrast. The visual presentation is focused and educational, using natural light to highlight the disease symptoms clearly." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAUaDskWE1Am_9yTYiUFBseh1xejfPvJIL4-O2Wx8STr2fsC3bd61X97T7HvTtAhEUnZXjlmS088sVrD_8He9n4AVImjLj1kKS4MALOnxceTMAoeLvmEgQzT4qEyF52cTh5vzXwypfiyHAnWUpHmBcRR3XU7y53I_2Ql2to_3jLby_An_hMJWeIrI_U-zGxt1QsR5-dt3-vWzluzlVc1L3wX_2lrE2KmMuIDV1SaInrV0RMiknvUNaskJLDaV5a3mFrpxNXc3gRmw"/>
+</div>
+<div class="flex-1 min-w-0">
+<h3 class="font-title-lg text-on-surface truncate">Bacterial Wilt</h3>
+<p class="text-on-surface-variant font-body-md">Cucumber</p>
+<p class="text-on-surface-variant font-label-lg text-xs">May 6, 2026</p>
+</div>
+<div class="flex flex-col items-end gap-base">
+<span class="px-sm py-0.5 bg-orange-100 text-orange-700 text-[10px] font-bold rounded-full uppercase">Medium</span>
+<span class="text-on-surface-variant font-label-lg text-[10px]">85% Match</span>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="bg-white p-md rounded-xl shadow-sm border border-outline-variant flex gap-md active:scale-[0.98] transition-transform">
+<div class="w-16 h-16 rounded-lg bg-surface-container overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Macro view of wheat leaf rust, displaying small orange-brown pustules scattered across a golden-green wheat leaf. The image is brightly lit with warm afternoon sun, creating a high-contrast and vivid visual that makes the rust symptoms stand out. The style is professional, tactile, and authoritative." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDqPqQx22fnnZjKJGjh3Ygbyz5PBhws89DJ1ZAHeeAwGqbE3IGo-B96cafYemYS9-Ay5PSId-PQNPWRl0pqBVOV-JMfK3UaouidObKcaO24FELr4QYynDuYlOW7o5mO5dqZFrQWzeY-gPPprM2NXx3YCKqasIifWz9Sjf8GQyenqf5E8R6Ac1W-tRdCl2EYogTIWen3IDT3bV19AnH2Ug2mxtyKf9lBXpPAjEHHx_s_l3B6HrhtHMDnITDcVwD4HGaezbOpmg5j_g"/>
+</div>
+<div class="flex-1 min-w-0">
+<h3 class="font-title-lg text-on-surface truncate">Leaf Rust</h3>
+<p class="text-on-surface-variant font-body-md">Wheat</p>
+<p class="text-on-surface-variant font-label-lg text-xs">May 5, 2026</p>
+</div>
+<div class="flex flex-col items-end gap-base">
+<span class="px-sm py-0.5 bg-green-100 text-green-700 text-[10px] font-bold rounded-full uppercase">Low</span>
+<span class="text-on-surface-variant font-label-lg text-[10px]">96% Match</span>
+</div>
+</div>
+<!-- Item 4 -->
+<div class="bg-white p-md rounded-xl shadow-sm border border-outline-variant flex gap-md active:scale-[0.98] transition-transform">
+<div class="w-16 h-16 rounded-lg bg-surface-container overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Close-up of a potato plant leaf severely affected by early blight, showing concentric brown rings and significant yellowing. The lighting is diffused and even, capturing every detail of the lesion patterns. The overall aesthetic is clean and high-information density, suitable for an agricultural diagnostic app." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCL5WdTneSqAt8r9Su5TlDxlsP-6nMtPbsGBkbfzpiY_J_knyI3umJkcTGh5xNrWGD-dN3GaKPtWhnR8S-xftTprPrr2pt4a6TzhtrdAjDtdq8FeHg3fCZwkJB9-zwOZDZjx9jseAlhAyw5imf3zGQqICZv5XiODbBRz9w0XwQ-6grjUL-wkldP8d5e6NZJ5-Mr-EnKMo59I7-ovFbCh2lRUrPfgj3sr65ns5JsahfIaUKyXZ49cq3_gYISiiZjZcVpWoUWqqzqBQ"/>
+</div>
+<div class="flex-1 min-w-0">
+<h3 class="font-title-lg text-on-surface truncate">Early Blight</h3>
+<p class="text-on-surface-variant font-body-md">Potato</p>
+<p class="text-on-surface-variant font-label-lg text-xs">May 3, 2026</p>
+</div>
+<div class="flex flex-col items-end gap-base">
+<span class="px-sm py-0.5 bg-red-100 text-red-700 text-[10px] font-bold rounded-full uppercase">High</span>
+<span class="text-on-surface-variant font-label-lg text-[10px]">89% Match</span>
+</div>
+</div>
+<!-- Item 5 -->
+<div class="bg-white p-md rounded-xl shadow-sm border border-outline-variant flex gap-md active:scale-[0.98] transition-transform">
+<div class="w-16 h-16 rounded-lg bg-surface-container overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Grapes leaf covered with powdery mildew, appearing as a white dusty coating on the leaf surface. The image is crisp and shot under bright daylight, highlighting the contrast between the healthy green parts and the diseased white patches. The visual style is modern, organic, and highly reliable." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBBdoUsbnuNQzXK1eF2E9VWnme6t5AxGITDHxW5hhVrn4dHOtucWU7G6X-8pWTpP3IegL2NjJKPuYVL_hrdvDgGDlyUqxNqlstkQkH5UShAwYCf5LvC12_t6yD4FObA4lXLNy0EchFvquNe_JlfFK69VXz0Ub2wwO9n5trAkUEqcEp4T3ZrvZwLtg9v6TXagrTK8L6HEathoIVDW26CV5gEqDUxcBVoa4YTWc-159wYX-0JQ06_ns667DOCsMe6B6wg6lRPE7Y4Rg"/>
+</div>
+<div class="flex-1 min-w-0">
+<h3 class="font-title-lg text-on-surface truncate">Powdery Mildew</h3>
+<p class="text-on-surface-variant font-body-md">Grapes</p>
+<p class="text-on-surface-variant font-label-lg text-xs">May 1, 2026</p>
+</div>
+<div class="flex flex-col items-end gap-base">
+<span class="px-sm py-0.5 bg-orange-100 text-orange-700 text-[10px] font-bold rounded-full uppercase">Medium</span>
+<span class="text-on-surface-variant font-label-lg text-[10px]">91% Match</span>
+</div>
+</div>
+</section>
+</main>
+<!-- FAB -->
+<button class="fixed bottom-24 right-6 w-[72px] h-[72px] bg-primary-container text-on-primary-container rounded-full shadow-lg flex items-center justify-center active:scale-90 transition-all z-40 border-4 border-white">
+<span class="material-symbols-outlined text-3xl">picture_as_pdf</span>
+</button>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full flex justify-around items-center h-touch-target py-base px-container-margin pb-safe bg-surface-container shadow-lg z-50 rounded-t-xl border-t border-outline-variant">
+<div class="flex flex-col items-center justify-center text-on-surface-variant opacity-80 hover:bg-surface-container-highest transition-all active:scale-90 p-2">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-lg text-label-lg">Home</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-5 py-1 active:scale-90 transition-all">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">history</span>
+<span class="font-label-lg text-label-lg">History</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant opacity-80 hover:bg-surface-container-highest transition-all active:scale-90 p-2">
+<span class="material-symbols-outlined">storefront</span>
+<span class="font-label-lg text-label-lg">Market</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant opacity-80 hover:bg-surface-container-highest transition-all active:scale-90 p-2">
+<span class="material-symbols-outlined">groups</span>
+<span class="font-label-lg text-label-lg">Community</span>
+</div>
+</nav>
+</body></html>

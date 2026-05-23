@@ -61,13 +61,6 @@
         android:label="@string/nav_market"
         tools:layout="@layout/fragment_market" />
 
-    <!-- Community Feed Screen -->
-    <fragment
-        android:id="@+id/communityFragment"
-        android:name="com.plantcure.ai.ui.community.CommunityFragment"
-        android:label="@string/nav_community"
-        tools:layout="@layout/fragment_community" />
-
     <!-- Result Screen (navigated to from Home or History) -->
     <fragment
         android:id="@+id/resultFragment"

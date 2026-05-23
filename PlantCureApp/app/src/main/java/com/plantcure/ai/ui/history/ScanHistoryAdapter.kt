@@ -49,6 +49,17 @@ class ScanHistoryAdapter(
                 .into(binding.ivThumbnail)
 
             itemView.setOnClickListener { onItemClick(scan) }
+
+            // Cascade slide in
+            itemView.translationX = 300f
+            itemView.alpha = 0f
+            itemView.animate()
+                .translationX(0f)
+                .alpha(1f)
+                .setDuration(400)
+                .setStartDelay((bindingAdapterPosition * 50).toLong())
+                .setInterpolator(android.view.animation.DecelerateInterpolator())
+                .start()
         }
     }
 

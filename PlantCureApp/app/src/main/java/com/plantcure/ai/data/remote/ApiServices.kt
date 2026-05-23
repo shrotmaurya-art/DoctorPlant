@@ -44,6 +44,43 @@ interface ClaudeApiService {
 }
 
 // ══════════════════════════════════════════════════════
+// OpenAI & Groq compatible API
+// ══════════════════════════════════════════════════════
+
+data class OpenAiRequest(
+    val model: String,
+    val messages: List<OpenAiMessage>,
+    val response_format: OpenAiResponseFormat? = null
+)
+
+data class OpenAiResponseFormat(
+    val type: String
+)
+
+data class OpenAiMessage(
+    val role: String,
+    val content: String
+)
+
+data class OpenAiResponse(
+    val choices: List<OpenAiChoice>
+)
+
+data class OpenAiChoice(
+    val message: OpenAiMessage
+)
+
+interface OpenAiApiService {
+    @Headers("Content-Type: application/json")
+    @POST("v1/chat/completions")
+    suspend fun getChatCompletion(
+        @Header("Authorization") authHeader: String,
+        @Body request: OpenAiRequest
+    ): Response<OpenAiResponse>
+}
+
+
+// ══════════════════════════════════════════════════════
 // OpenWeatherMap API
 // ══════════════════════════════════════════════════════
 

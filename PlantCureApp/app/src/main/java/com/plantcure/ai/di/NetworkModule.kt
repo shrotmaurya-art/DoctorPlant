@@ -3,6 +3,7 @@ package com.plantcure.ai.di
 import com.plantcure.ai.BuildConfig
 import com.plantcure.ai.data.remote.AgmarknetApiService
 import com.plantcure.ai.data.remote.ClaudeApiService
+import com.plantcure.ai.data.remote.OpenAiApiService
 import com.plantcure.ai.data.remote.WeatherApiService
 import dagger.Module
 import dagger.Provides
@@ -50,6 +51,29 @@ object NetworkModule {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(ClaudeApiService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideOpenAiApiService(client: OkHttpClient): OpenAiApiService {
+        return Retrofit.Builder()
+            .baseUrl("https://api.openai.com/")
+            .client(client)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(OpenAiApiService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    @Named("groq")
+    fun provideGroqApiService(client: OkHttpClient): OpenAiApiService {
+        return Retrofit.Builder()
+            .baseUrl("https://api.groq.com/openai/")
+            .client(client)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(OpenAiApiService::class.java)
     }
 
     @Provides

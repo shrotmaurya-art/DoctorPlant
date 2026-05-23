@@ -4,6 +4,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import android.view.Gravity
+import android.transition.Slide
 import com.plantcure.ai.R
 import com.plantcure.ai.databinding.ActivityMainBinding
 import com.plantcure.ai.domain.classifier.PlantDiseaseClassifier
@@ -34,6 +36,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        window.enterTransition = Slide(Gravity.BOTTOM).apply {
+            duration = 300
+        }
 
         // Warm up the TFLite model on a background thread
         Thread { classifier.initialize() }.start()

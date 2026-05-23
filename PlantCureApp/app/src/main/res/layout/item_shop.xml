@@ -1,115 +1,166 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="16dp"
-    android:background="@drawable/bg_rounded_surface_low"
-    android:orientation="horizontal"
-    android:padding="16dp"
-    android:gravity="center_vertical"
-    android:elevation="2dp">
+    android:layout_marginBottom="12dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="3dp"
+    app:cardBackgroundColor="@android:color/white"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground">
 
-    <!-- Details -->
     <LinearLayout
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="vertical">
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:gravity="center_vertical">
 
-        <TextView
-            android:id="@+id/tvShopName"
-            android:layout_width="wrap_content"
+        <!-- Details Column -->
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textColor="@color/on_surface"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            tools:text="Shree Krishi Kendra" />
+            android:layout_weight="1"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tvShopType"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/on_surface_variant"
-            android:textSize="14sp"
-            tools:text="Pesticide &amp; Fertilizer" />
+            <!-- Name + Open/Closed Row -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
 
+                <TextView
+                    android:id="@+id/tvShopName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="#1B6B2F"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    tools:text="Shree Krishi Kendra" />
+
+                <TextView
+                    android:id="@+id/tvOpenStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="2dp"
+                    android:background="@drawable/bg_chip_low"
+                    android:visibility="gone"
+                    tools:text="Open"
+                    tools:visibility="visible" />
+            </LinearLayout>
+
+            <!-- Address -->
+            <TextView
+                android:id="@+id/tvShopAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:textColor="#888888"
+                android:textSize="13sp"
+                android:maxLines="1"
+                android:ellipsize="end"
+                tools:text="Sadar Bazaar, Near Bus Stand" />
+
+            <!-- Distance & Rating Row -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="6dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/tvDistance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#2E7D32"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    tools:text="1.2 km" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="6dp"
+                    android:textColor="#CCCCCC"
+                    android:textSize="12sp"
+                    android:text="•" />
+
+                <TextView
+                    android:id="@+id/tvRating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#333333"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    tools:text="4.3" />
+
+                <ImageView
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:layout_marginStart="2dp"
+                    android:src="@android:drawable/btn_star_big_on"
+                    app:tint="#F57F17" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Action Buttons Column -->
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="4dp"
-            android:gravity="center_vertical">
+            android:layout_marginStart="12dp">
 
-            <TextView
-                android:id="@+id/tvDistance"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/primary"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                tools:text="1.2 km away" />
+            <!-- Call Button -->
+            <FrameLayout
+                android:id="@+id/btnCall"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:background="@drawable/bg_rounded_primary"
+                android:backgroundTint="#E8F5E9"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackgroundBorderless">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:layout_marginEnd="4dp"
-                android:textColor="@color/outline"
-                android:textSize="12sp"
-                android:text="•" />
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:src="@android:drawable/ic_menu_call"
+                    app:tint="#2E7D32" />
+            </FrameLayout>
 
-            <TextView
-                android:id="@+id/tvRating"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/on_surface"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                tools:text="4.3" />
+            <!-- Directions Button -->
+            <FrameLayout
+                android:id="@+id/btnDirections"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/bg_rounded_primary"
+                android:backgroundTint="#2E7D32"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackgroundBorderless">
 
-            <ImageView
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:layout_marginStart="2dp"
-                android:src="@android:drawable/btn_star"
-                app:tint="#F57F17" />
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:src="@android:drawable/ic_menu_directions"
+                    app:tint="@android:color/white" />
+            </FrameLayout>
         </LinearLayout>
     </LinearLayout>
-
-    <!-- Actions -->
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <FrameLayout
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:background="@drawable/bg_rounded_primary"
-            android:backgroundTint="@color/primary_container">
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_gravity="center"
-                android:src="@android:drawable/ic_menu_call"
-                app:tint="@color/on_primary" />
-        </FrameLayout>
-
-        <FrameLayout
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="8dp"
-            android:background="@drawable/bg_rounded_primary"
-            android:backgroundTint="@color/primary_container">
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_gravity="center"
-                android:src="@android:drawable/ic_menu_directions"
-                app:tint="@color/on_primary" />
-        </FrameLayout>
-    </LinearLayout>
-
-</LinearLayout>
+</com.google.android.material.card.MaterialCardView>

@@ -23,6 +23,13 @@ interface MarketPriceDao {
     """)
     fun getPricesForCommodityAndState(commodity: String, state: String): Flow<List<MarketPrice>>
 
+    @Query("""
+        SELECT * FROM market_prices 
+        WHERE commodity = :commodity AND state = :state AND district = :district
+        ORDER BY price_date DESC
+    """)
+    fun getPricesForCommodityStateAndDistrict(commodity: String, state: String, district: String): Flow<List<MarketPrice>>
+
     @Query("SELECT AVG(modal_price) FROM market_prices WHERE commodity = :commodity AND cached_at > :since")
     suspend fun getAverageModalPrice(commodity: String, since: Long): Float?
 
@@ -31,4 +38,7 @@ interface MarketPriceDao {
 
     @Query("SELECT MAX(cached_at) FROM market_prices WHERE commodity = :commodity")
     suspend fun getLastCacheTime(commodity: String): Long?
+
+    @Query("SELECT MAX(cached_at) FROM market_prices WHERE commodity = :commodity AND state = :state")
+    suspend fun getLastCacheTimeForState(commodity: String, state: String): Long?
 }

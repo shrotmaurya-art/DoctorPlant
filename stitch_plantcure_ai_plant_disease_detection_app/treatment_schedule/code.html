@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>KrishiSeva - Treatment Schedule</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-container": "#1b6b2f",
+                        "outline-variant": "#bfc9bc",
+                        "surface": "#f7fbf2",
+                        "surface-container": "#ebefe6",
+                        "on-tertiary-fixed": "#002108",
+                        "secondary-fixed-dim": "#ffb787",
+                        "on-surface": "#181d18",
+                        "primary-fixed-dim": "#89d88f",
+                        "on-secondary-container": "#612d00",
+                        "on-tertiary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "on-primary": "#ffffff",
+                        "surface-container-highest": "#e0e4db",
+                        "tertiary-fixed": "#b3f2b6",
+                        "secondary-container": "#fe851f",
+                        "tertiary-fixed-dim": "#98d59c",
+                        "inverse-surface": "#2d322c",
+                        "outline": "#707a6e",
+                        "on-secondary-fixed": "#311300",
+                        "on-tertiary-container": "#a8e6ab",
+                        "on-primary-fixed-variant": "#00531d",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-bright": "#f7fbf2",
+                        "surface-tint": "#1d6c30",
+                        "secondary": "#964900",
+                        "surface-container-low": "#f1f5ec",
+                        "inverse-on-surface": "#eef2e9",
+                        "background": "#f7fbf2",
+                        "primary": "#00511d",
+                        "on-surface-variant": "#40493f",
+                        "tertiary": "#155025",
+                        "on-tertiary-fixed-variant": "#175125",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-fixed-variant": "#723600",
+                        "on-primary-container": "#99e99e",
+                        "on-error": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "surface-dim": "#d7dbd3",
+                        "error": "#ba1a1a",
+                        "primary-fixed": "#a4f5a9",
+                        "secondary-fixed": "#ffdcc7",
+                        "on-background": "#181d18",
+                        "tertiary-container": "#30693a",
+                        "surface-container-high": "#e5e9e1",
+                        "on-primary-fixed": "#002107",
+                        "surface-variant": "#e0e4db",
+                        "inverse-primary": "#89d88f"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-margin": "16px",
+                        "touch-target": "48px",
+                        "md": "16px",
+                        "base": "8px",
+                        "gutter": "16px",
+                        "sm": "12px",
+                        "xs": "4px",
+                        "xl": "32px",
+                        "lg": "24px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Atkinson Hyperlegible Next"],
+                        "headline-lg-mobile": ["Atkinson Hyperlegible Next"],
+                        "body-lg": ["Atkinson Hyperlegible Next"],
+                        "title-lg": ["Atkinson Hyperlegible Next"],
+                        "headline-lg": ["Atkinson Hyperlegible Next"],
+                        "label-lg": ["Atkinson Hyperlegible Next"],
+                        "body-md": ["Atkinson Hyperlegible Next"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["22px", {"lineHeight": "28px", "fontWeight": "700"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "26px", "fontWeight": "400"}],
+                        "title-lg": ["20px", {"lineHeight": "26px", "fontWeight": "600"}],
+                        "headline-lg": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                        "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.1px", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Atkinson Hyperlegible Next', sans-serif;
+            background-color: #FAFAFA;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface pb-32">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-[#0D4A1F] shadow-sm flex items-center justify-between px-md h-touch-target">
+<div class="flex items-center gap-md">
+<button class="text-white transition-transform duration-200 active:scale-95 flex items-center justify-center w-touch-target h-touch-target">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<h1 class="text-white font-title-lg text-title-lg">Treatment Schedule</h1>
+</div>
+<button class="text-white flex items-center justify-center w-touch-target h-touch-target">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</header>
+<main class="mt-20 px-container-margin space-y-md">
+<!-- Disease Context Card -->
+<div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant shadow-sm">
+<div class="flex justify-between items-start mb-base">
+<h2 class="font-title-lg text-title-lg text-on-surface">Tomato Late Blight — High Severity</h2>
+<span class="bg-error-container text-on-error-container font-label-lg text-label-lg px-sm py-xs rounded-full">High Severity</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant flex items-center gap-xs">
+<span class="material-symbols-outlined text-[18px]">calendar_today</span>
+                Started May 5, 2026
+            </p>
+</div>
+<!-- Next Action Card -->
+<div class="bg-primary-container text-on-primary-container p-lg rounded-xl shadow-lg relative overflow-hidden">
+<div class="relative z-10 space-y-base">
+<div class="flex justify-between items-center">
+<span class="font-label-lg text-label-lg bg-white/20 px-sm py-xs rounded-full backdrop-blur-md">Next Treatment: Tomorrow</span>
+<span class="font-label-lg text-label-lg flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px]">timer</span>
+                        1 day remaining
+                    </span>
+</div>
+<h3 class="font-headline-md text-headline-md leading-tight">Apply Mancozeb spray (2g/L)</h3>
+<button class="mt-md bg-white text-primary px-lg py-sm rounded-full font-label-lg text-label-lg shadow-sm transition-all duration-200 active:scale-95">
+                    View Details
+                </button>
+</div>
+<!-- Decorative circle -->
+<div class="absolute -bottom-10 -right-10 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
+</div>
+<!-- Monthly Calendar View -->
+<div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant shadow-sm">
+<div class="flex justify-between items-center mb-md">
+<h3 class="font-title-lg text-title-lg">May 2026</h3>
+<div class="flex gap-base">
+<button class="material-symbols-outlined p-xs">chevron_left</button>
+<button class="material-symbols-outlined p-xs">chevron_right</button>
+</div>
+</div>
+<div class="grid grid-cols-7 gap-y-sm text-center mb-base">
+<div class="font-label-lg text-label-lg text-outline">S</div>
+<div class="font-label-lg text-label-lg text-outline">M</div>
+<div class="font-label-lg text-label-lg text-outline">T</div>
+<div class="font-label-lg text-label-lg text-outline">W</div>
+<div class="font-label-lg text-label-lg text-outline">T</div>
+<div class="font-label-lg text-label-lg text-outline">F</div>
+<div class="font-label-lg text-label-lg text-outline">S</div>
+</div>
+<div class="grid grid-cols-7 gap-y-md text-center">
+<!-- Row 1 (Starting Fri) -->
+<div class="p-base"></div><div class="p-base"></div><div class="p-base"></div><div class="p-base"></div><div class="p-base"></div>
+<div class="p-base text-body-md relative">1</div>
+<div class="p-base text-body-md relative">2</div>
+<!-- Row 2 -->
+<div class="p-base text-body-md relative">3</div>
+<div class="p-base text-body-md relative">4</div>
+<!-- May 5: Done -->
+<div class="p-base text-body-md relative flex flex-col items-center">
+<span class="z-10">5</span>
+<div class="absolute inset-0 bg-primary/10 rounded-full m-1"></div>
+<span class="material-symbols-outlined text-primary text-[14px] absolute -top-1 -right-1" data-weight="fill">check_circle</span>
+</div>
+<div class="p-base text-body-md relative">6</div>
+<div class="p-base text-body-md relative">7</div>
+<!-- May 8: Done -->
+<div class="p-base text-body-md relative flex flex-col items-center">
+<span class="z-10">8</span>
+<div class="absolute inset-0 bg-primary/10 rounded-full m-1"></div>
+<span class="material-symbols-outlined text-primary text-[14px] absolute -top-1 -right-1" data-weight="fill">check_circle</span>
+</div>
+<div class="p-base text-body-md relative">9</div>
+<!-- Row 3 -->
+<!-- May 10: Today -->
+<div class="p-base text-body-md relative flex justify-center">
+<span class="z-10 font-bold border-2 border-primary rounded-full w-8 h-8 flex items-center justify-center -mt-1">10</span>
+</div>
+<!-- May 11: Upcoming -->
+<div class="p-base text-body-md relative flex flex-col items-center">
+<span class="z-10">11</span>
+<div class="w-1.5 h-1.5 bg-primary rounded-full mt-0.5"></div>
+</div>
+<div class="p-base text-body-md relative">12</div>
+<div class="p-base text-body-md relative">13</div>
+<!-- May 14: Scheduled -->
+<div class="p-base text-body-md relative flex flex-col items-center">
+<span class="z-10">14</span>
+<div class="w-1.5 h-1.5 bg-primary rounded-full mt-0.5"></div>
+</div>
+<div class="p-base text-body-md relative">15</div>
+<div class="p-base text-body-md relative">16</div>
+<!-- Row 4 -->
+<!-- May 17: Scheduled -->
+<div class="p-base text-body-md relative flex flex-col items-center">
+<span class="z-10">17</span>
+<div class="w-1.5 h-1.5 bg-primary rounded-full mt-0.5"></div>
+</div>
+<div class="p-base text-body-md relative">18</div>
+<div class="p-base text-body-md relative">19</div>
+<div class="p-base text-body-md relative">20</div>
+<div class="p-base text-body-md relative">21</div>
+<div class="p-base text-body-md relative">22</div>
+<div class="p-base text-body-md relative">23</div>
+</div>
+</div>
+<!-- Treatment List -->
+<div class="space-y-base">
+<h3 class="font-title-lg text-title-lg mt-lg mb-base">Schedule Details</h3>
+<!-- May 5 -->
+<div class="flex gap-md items-start bg-surface-container-low p-md rounded-xl border border-outline-variant/30">
+<div class="flex flex-col items-center min-w-[48px]">
+<span class="font-label-lg text-label-lg text-primary">MAY</span>
+<span class="font-headline-md text-headline-md text-primary">05</span>
+</div>
+<div class="flex-1">
+<p class="font-title-lg text-body-lg text-on-surface">Apply neem oil spray</p>
+<div class="flex items-center gap-xs mt-xs text-[#1B6B2F]">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-label-lg text-label-lg">Done</span>
+</div>
+</div>
+</div>
+<!-- May 8 -->
+<div class="flex gap-md items-start bg-surface-container-low p-md rounded-xl border border-outline-variant/30">
+<div class="flex flex-col items-center min-w-[48px]">
+<span class="font-label-lg text-label-lg text-primary">MAY</span>
+<span class="font-headline-md text-headline-md text-primary">08</span>
+</div>
+<div class="flex-1">
+<p class="font-title-lg text-body-lg text-on-surface">Apply Mancozeb 75% WP</p>
+<div class="flex items-center gap-xs mt-xs text-[#1B6B2F]">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-label-lg text-label-lg">Done</span>
+</div>
+</div>
+</div>
+<!-- May 11 -->
+<div class="flex gap-md items-start bg-surface-container-low p-md rounded-xl border border-primary/20">
+<div class="flex flex-col items-center min-w-[48px]">
+<span class="font-label-lg text-label-lg text-secondary">MAY</span>
+<span class="font-headline-md text-headline-md text-secondary">11</span>
+</div>
+<div class="flex-1">
+<p class="font-title-lg text-body-lg text-on-surface">Inspect and remove infected leaves</p>
+<div class="flex items-center gap-xs mt-xs text-[#F57F17]">
+<span class="material-symbols-outlined text-[18px]">hourglass_empty</span>
+<span class="font-label-lg text-label-lg">Upcoming</span>
+</div>
+</div>
+</div>
+<!-- May 14 -->
+<div class="flex gap-md items-start bg-surface-container-low p-md rounded-xl border border-outline-variant/30 opacity-75">
+<div class="flex flex-col items-center min-w-[48px]">
+<span class="font-label-lg text-label-lg text-outline">MAY</span>
+<span class="font-headline-md text-headline-md text-outline">14</span>
+</div>
+<div class="flex-1">
+<p class="font-title-lg text-body-lg text-on-surface">Apply copper oxychloride</p>
+<div class="flex items-center gap-xs mt-xs text-outline">
+<span class="material-symbols-outlined text-[18px]">calendar_month</span>
+<span class="font-label-lg text-label-lg">Scheduled</span>
+</div>
+</div>
+</div>
+<!-- May 17 -->
+<div class="flex gap-md items-start bg-surface-container-low p-md rounded-xl border border-outline-variant/30 opacity-75">
+<div class="flex flex-col items-center min-w-[48px]">
+<span class="font-label-lg text-label-lg text-outline">MAY</span>
+<span class="font-headline-md text-headline-md text-outline">17</span>
+</div>
+<div class="flex-1">
+<p class="font-title-lg text-body-lg text-on-surface">Final assessment spray</p>
+<div class="flex items-center gap-xs mt-xs text-outline">
+<span class="material-symbols-outlined text-[18px]">calendar_month</span>
+<span class="font-label-lg text-label-lg">Scheduled</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 h-20 bg-surface dark:bg-surface-dim border-t border-outline-variant flex justify-around items-center px-container-margin pb-safe shadow-lg">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-lg py-xs transition-all duration-200 active:scale-90" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-lg text-label-lg">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-lg py-xs transition-all duration-200 active:scale-90" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">history</span>
+<span class="font-label-lg text-label-lg">History</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-lg py-xs transition-all duration-200 active:scale-90" href="#">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="font-label-lg text-label-lg">Market</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-lg py-xs transition-all duration-200 active:scale-90" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-lg text-label-lg">Community</span>
+</a>
+</nav>
+<!-- Contextual FAB - Suppression Logic: Only show on Home/Search as per guidelines, but adding here as a secondary "Add Treatment" option if needed, though strictly we prioritize the shell rules. In this sub-page we suppress per instructions. -->
+</body></html>

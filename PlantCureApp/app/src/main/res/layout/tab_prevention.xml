@@ -113,5 +113,16 @@
                     android:textSize="14sp" />
             </LinearLayout>
         </LinearLayout>
+
+        <!-- Find Shops Nearby Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnFindShops"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="16dp"
+            android:text="Find Nearby Agrochemical Shops"
+            app:icon="@drawable/ic_location"
+            style="@style/Widget.Material3.Button" />
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

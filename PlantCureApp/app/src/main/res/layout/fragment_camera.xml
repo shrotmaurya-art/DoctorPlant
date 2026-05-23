@@ -18,6 +18,29 @@
         app:layout_constraintVertical_bias="0.0"
         app:layout_constraintDimensionRatio="H,3:4" />
 
+    <!-- Scanner Frame Overlay -->
+    <View
+        android:id="@+id/scannerFrame"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:background="@drawable/bg_scanner_frame"
+        app:layout_constraintTop_toTopOf="@id/cameraPreview"
+        app:layout_constraintBottom_toBottomOf="@id/cameraPreview"
+        app:layout_constraintStart_toStartOf="@id/cameraPreview"
+        app:layout_constraintEnd_toEndOf="@id/cameraPreview" />
+
+    <!-- Laser Line -->
+    <View
+        android:id="@+id/laserLine"
+        android:layout_width="230dp"
+        android:layout_height="2dp"
+        android:background="#00E676"
+        android:alpha="0.8"
+        android:elevation="4dp"
+        app:layout_constraintTop_toTopOf="@id/scannerFrame"
+        app:layout_constraintStart_toStartOf="@id/scannerFrame"
+        app:layout_constraintEnd_toEndOf="@id/scannerFrame" />
+
     <!-- Loading Indicator (over camera) -->
     <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/progressIndicator"

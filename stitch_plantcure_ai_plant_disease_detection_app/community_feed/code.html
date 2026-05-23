@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PlantCure AI - Community Feed</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary-fixed-variant": "#723600",
+                    "on-primary-container": "#99e99e",
+                    "surface-container-low": "#f1f5ec",
+                    "on-tertiary-container": "#a8e6ab",
+                    "on-surface": "#181d18",
+                    "secondary": "#964900",
+                    "tertiary-fixed": "#b3f2b6",
+                    "outline": "#707a6e",
+                    "surface-dim": "#d7dbd3",
+                    "on-tertiary-fixed": "#002108",
+                    "on-secondary-fixed": "#311300",
+                    "background": "#f7fbf2",
+                    "inverse-primary": "#89d88f",
+                    "on-background": "#181d18",
+                    "surface-variant": "#e0e4db",
+                    "surface-container": "#ebefe6",
+                    "error": "#ba1a1a",
+                    "tertiary-container": "#30693a",
+                    "surface-container-high": "#e5e9e1",
+                    "tertiary-fixed-dim": "#98d59c",
+                    "on-tertiary-fixed-variant": "#175125",
+                    "inverse-on-surface": "#eef2e9",
+                    "primary-fixed-dim": "#89d88f",
+                    "surface-bright": "#f7fbf2",
+                    "on-error": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "primary-fixed": "#a4f5a9",
+                    "primary": "#00511d",
+                    "tertiary": "#155025",
+                    "error-container": "#ffdad6",
+                    "on-error-container": "#93000a",
+                    "on-primary-fixed-variant": "#00531d",
+                    "inverse-surface": "#2d322c",
+                    "primary-container": "#1b6b2f",
+                    "on-secondary-container": "#612d00",
+                    "surface-tint": "#1d6c30",
+                    "on-primary-fixed": "#002107",
+                    "surface-container-highest": "#e0e4db",
+                    "outline-variant": "#bfc9bc",
+                    "on-primary": "#ffffff",
+                    "secondary-fixed": "#ffdcc7",
+                    "surface": "#f7fbf2",
+                    "on-surface-variant": "#40493f",
+                    "on-secondary": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "secondary-fixed-dim": "#ffb787",
+                    "secondary-container": "#fe851f"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xs": "4px",
+                    "md": "16px",
+                    "touch-target": "48px",
+                    "sm": "12px",
+                    "container-margin": "16px",
+                    "lg": "24px",
+                    "gutter": "16px",
+                    "base": "8px",
+                    "xl": "32px"
+            },
+            "fontFamily": {
+                    "body-lg": ["Atkinson Hyperlegible Next"],
+                    "headline-lg-mobile": ["Atkinson Hyperlegible Next"],
+                    "body-md": ["Atkinson Hyperlegible Next"],
+                    "headline-lg": ["Atkinson Hyperlegible Next"],
+                    "title-lg": ["Atkinson Hyperlegible Next"],
+                    "label-lg": ["Atkinson Hyperlegible Next"],
+                    "headline-md": ["Atkinson Hyperlegible Next"]
+            },
+            "fontSize": {
+                    "body-lg": ["18px", {"lineHeight": "26px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                    "title-lg": ["20px", {"lineHeight": "26px", "fontWeight": "600"}],
+                    "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.1px", "fontWeight": "600"}],
+                    "headline-md": ["22px", {"lineHeight": "28px", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Atkinson Hyperlegible Next', sans-serif; background-color: #FAFAFA; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .shadow-soft { box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.08); }
+        .active-tab { border-bottom: 3px solid #1B6B2F; color: #1B6B2F; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="flex flex-col min-h-screen text-on-surface">
+<!-- TopAppBar from JSON Authority -->
+<header class="bg-[#0D4A1F] text-white w-full top-0 sticky z-50 shadow-sm flex justify-between items-center h-16 px-container-margin">
+<div class="flex items-center gap-md">
+<button class="material-symbols-outlined hover:bg-white/10 rounded-full p-2 transition-colors active:scale-95">arrow_back</button>
+<h1 class="font-headline-md text-headline-md font-bold">Community Feed</h1>
+</div>
+<div class="flex items-center">
+<button class="material-symbols-outlined hover:bg-white/10 rounded-full p-2 transition-colors active:scale-95">map</button>
+</div>
+</header>
+<!-- Tab Layout -->
+<nav class="bg-white flex w-full border-b border-outline-variant sticky top-16 z-40">
+<button class="flex-1 py-md font-label-lg text-label-lg active-tab text-center uppercase tracking-wider">Feed</button>
+<button class="flex-1 py-md font-label-lg text-label-lg text-on-surface-variant text-center uppercase tracking-wider opacity-70">Disease Map</button>
+</nav>
+<!-- Main Content -->
+<main class="flex-grow pb-32">
+<!-- Alert Banner -->
+<div class="bg-[#B71C1C] text-white px-container-margin py-sm flex items-center gap-sm">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">warning</span>
+<p class="font-label-lg text-label-lg">⚠ 5 cases of Late Blight reported in your district this week</p>
+</div>
+<!-- Feed List -->
+<section class="p-container-margin space-y-md">
+<!-- Card 1: High Severity -->
+<div class="bg-white rounded-xl p-md border border-[#E0E0E0] shadow-soft flex flex-col gap-sm">
+<div class="flex justify-between items-start">
+<div class="flex gap-md">
+<div class="h-12 w-12 rounded-full bg-surface-container-highest flex items-center justify-center border border-outline-variant">
+<span class="material-symbols-outlined text-on-surface-variant">person</span>
+</div>
+<div>
+<h2 class="font-title-lg text-title-lg text-on-surface">Tomato Late Blight</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Crop: Tomato</p>
+</div>
+</div>
+<span class="bg-[#FFDAD6] text-[#93000A] px-sm py-1 rounded-full font-label-lg text-label-lg flex items-center">High</span>
+</div>
+<div class="flex flex-col gap-xs mt-xs">
+<div class="flex items-center gap-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+<span class="font-body-md text-body-md">Nashik District, Maharashtra</span>
+</div>
+<div class="flex items-center gap-md text-on-surface-variant/70 text-[14px]">
+<span>12 km away</span>
+<span>•</span>
+<span>2 hours ago</span>
+</div>
+</div>
+</div>
+<!-- Card 2: Medium Severity -->
+<div class="bg-white rounded-xl p-md border border-[#E0E0E0] shadow-soft flex flex-col gap-sm">
+<div class="flex justify-between items-start">
+<div class="flex gap-md">
+<div class="h-12 w-12 rounded-full bg-surface-container-highest flex items-center justify-center border border-outline-variant">
+<span class="material-symbols-outlined text-on-surface-variant">person</span>
+</div>
+<div>
+<h2 class="font-title-lg text-title-lg text-on-surface">Wheat Rust</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Crop: Wheat</p>
+</div>
+</div>
+<span class="bg-[#FFDCC7] text-[#723600] px-sm py-1 rounded-full font-label-lg text-label-lg flex items-center">Medium</span>
+</div>
+<div class="flex flex-col gap-xs mt-xs">
+<div class="flex items-center gap-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+<span class="font-body-md text-body-md">Nashik District, Maharashtra</span>
+</div>
+<div class="flex items-center gap-md text-on-surface-variant/70 text-[14px]">
+<span>8 km away</span>
+<span>•</span>
+<span>5 hours ago</span>
+</div>
+</div>
+</div>
+<!-- Card 3: Low Severity -->
+<div class="bg-white rounded-xl p-md border border-[#E0E0E0] shadow-soft flex flex-col gap-sm">
+<div class="flex justify-between items-start">
+<div class="flex gap-md">
+<div class="h-12 w-12 rounded-full bg-surface-container-highest flex items-center justify-center border border-outline-variant">
+<span class="material-symbols-outlined text-on-surface-variant">person</span>
+</div>
+<div>
+<h2 class="font-title-lg text-title-lg text-on-surface">Aphid Infestation</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Crop: Cotton</p>
+</div>
+</div>
+<span class="bg-[#D1E9D2] text-[#00511D] px-sm py-1 rounded-full font-label-lg text-label-lg flex items-center">Low</span>
+</div>
+<div class="flex flex-col gap-xs mt-xs">
+<div class="flex items-center gap-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+<span class="font-body-md text-body-md">Nashik District, Maharashtra</span>
+</div>
+<div class="flex items-center gap-md text-on-surface-variant/70 text-[14px]">
+<span>15 km away</span>
+<span>•</span>
+<span>1 day ago</span>
+</div>
+</div>
+</div>
+<!-- Card 4: High Severity -->
+<div class="bg-white rounded-xl p-md border border-[#E0E0E0] shadow-soft flex flex-col gap-sm">
+<div class="flex justify-between items-start">
+<div class="flex gap-md">
+<div class="h-12 w-12 rounded-full bg-surface-container-highest flex items-center justify-center border border-outline-variant">
+<span class="material-symbols-outlined text-on-surface-variant">person</span>
+</div>
+<div>
+<h2 class="font-title-lg text-title-lg text-on-surface">Downy Mildew</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Crop: Grape</p>
+</div>
+</div>
+<span class="bg-[#FFDAD6] text-[#93000A] px-sm py-1 rounded-full font-label-lg text-label-lg flex items-center">High</span>
+</div>
+<div class="flex flex-col gap-xs mt-xs">
+<div class="flex items-center gap-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+<span class="font-body-md text-body-md">Nashik District, Maharashtra</span>
+</div>
+<div class="flex items-center gap-md text-on-surface-variant/70 text-[14px]">
+<span>3 km away</span>
+<span>•</span>
+<span>3 hours ago</span>
+</div>
+</div>
+</div>
+<!-- Card 5: Medium Severity -->
+<div class="bg-white rounded-xl p-md border border-[#E0E0E0] shadow-soft flex flex-col gap-sm">
+<div class="flex justify-between items-start">
+<div class="flex gap-md">
+<div class="h-12 w-12 rounded-full bg-surface-container-highest flex items-center justify-center border border-outline-variant">
+<span class="material-symbols-outlined text-on-surface-variant">person</span>
+</div>
+<div>
+<h2 class="font-title-lg text-title-lg text-on-surface">Bacterial Wilt</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Crop: Brinjal</p>
+</div>
+</div>
+<span class="bg-[#FFDCC7] text-[#723600] px-sm py-1 rounded-full font-label-lg text-label-lg flex items-center">Medium</span>
+</div>
+<div class="flex flex-col gap-xs mt-xs">
+<div class="flex items-center gap-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+<span class="font-body-md text-body-md">Nashik District, Maharashtra</span>
+</div>
+<div class="flex items-center gap-md text-on-surface-variant/70 text-[14px]">
+<span>22 km away</span>
+<span>•</span>
+<span>6 hours ago</span>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Contextual FAB -->
+<button class="fixed bottom-24 right-container-margin z-50 bg-[#1B6B2F] text-white flex items-center gap-sm px-lg py-sm rounded-full shadow-lg active:scale-95 transition-transform h-[56px]">
+<span class="material-symbols-outlined">share</span>
+<span class="font-title-lg text-title-lg">Share My Detection</span>
+</button>
+<!-- BottomNavBar from JSON Authority -->
+<nav class="fixed bottom-0 w-full flex justify-around items-center h-touch-target py-base px-container-margin pb-safe bg-surface-container shadow-lg z-50 rounded-t-xl border-t border-outline-variant">
+<div class="flex flex-col items-center justify-center text-on-surface-variant opacity-80 hover:bg-surface-container-highest transition-all active:scale-90 duration-200">
+<span class="material-symbols-outlined">eco</span>
+<span class="font-label-lg text-label-lg">Home</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant opacity-80 hover:bg-surface-container-highest transition-all active:scale-90 duration-200">
+<span class="material-symbols-outlined">history</span>
+<span class="font-label-lg text-label-lg">History</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant opacity-80 hover:bg-surface-container-highest transition-all active:scale-90 duration-200">
+<span class="material-symbols-outlined">storefront</span>
+<span class="font-label-lg text-label-lg">Market</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-5 py-1 active:scale-90 transition-all duration-200">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">groups</span>
+<span class="font-label-lg text-label-lg">Community</span>
+</div>
+</nav>
+</body></html>

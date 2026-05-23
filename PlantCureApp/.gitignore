@@ -12,8 +12,8 @@ build/
 .cxx/
 local.properties
 
-# Google Services
-google-services.json
+# Google Services - removed from ignore to allow dummy for run
+# google-services.json
 
 # APK files
 *.apk

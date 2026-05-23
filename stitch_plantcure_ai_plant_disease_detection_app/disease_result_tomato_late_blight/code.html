@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PlantCure AI - Disease Result</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-secondary-container": "#612d00",
+                      "on-secondary": "#ffffff",
+                      "tertiary-container": "#30693a",
+                      "on-primary-fixed-variant": "#00531d",
+                      "on-secondary-fixed": "#311300",
+                      "on-primary-container": "#99e99e",
+                      "inverse-surface": "#2d322c",
+                      "secondary-fixed-dim": "#ffb787",
+                      "surface-container-low": "#f1f5ec",
+                      "surface-dim": "#d7dbd3",
+                      "on-secondary-fixed-variant": "#723600",
+                      "surface": "#f7fbf2",
+                      "outline": "#707a6e",
+                      "surface-bright": "#f7fbf2",
+                      "primary": "#00511d",
+                      "on-error-container": "#93000a",
+                      "surface-tint": "#1d6c30",
+                      "on-surface-variant": "#40493f",
+                      "surface-container-highest": "#e0e4db",
+                      "on-tertiary-fixed-variant": "#175125",
+                      "inverse-primary": "#89d88f",
+                      "error": "#ba1a1a",
+                      "surface-container-lowest": "#ffffff",
+                      "secondary": "#964900",
+                      "tertiary-fixed-dim": "#98d59c",
+                      "surface-container": "#ebefe6",
+                      "secondary-fixed": "#ffdcc7",
+                      "background": "#f7fbf2",
+                      "on-tertiary-fixed": "#002108",
+                      "on-error": "#ffffff",
+                      "on-background": "#181d18",
+                      "on-primary-fixed": "#002107",
+                      "tertiary-fixed": "#b3f2b6",
+                      "surface-container-high": "#e5e9e1",
+                      "primary-fixed": "#a4f5a9",
+                      "inverse-on-surface": "#eef2e9",
+                      "primary-container": "#1b6b2f",
+                      "primary-fixed-dim": "#89d88f",
+                      "on-primary": "#ffffff",
+                      "error-container": "#ffdad6",
+                      "outline-variant": "#bfc9bc",
+                      "secondary-container": "#fe851f",
+                      "on-tertiary": "#ffffff",
+                      "surface-variant": "#e0e4db",
+                      "on-tertiary-container": "#a8e6ab",
+                      "tertiary": "#155025",
+                      "on-surface": "#181d18"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "gutter": "16px",
+                      "container-margin": "16px",
+                      "sm": "12px",
+                      "lg": "24px",
+                      "base": "8px",
+                      "md": "16px",
+                      "touch-target": "48px",
+                      "xs": "4px",
+                      "xl": "32px"
+              },
+              "fontFamily": {
+                      "label-lg": ["Atkinson Hyperlegible Next"],
+                      "title-lg": ["Atkinson Hyperlegible Next"],
+                      "body-lg": ["Atkinson Hyperlegible Next"],
+                      "headline-lg": ["Atkinson Hyperlegible Next"],
+                      "headline-lg-mobile": ["Atkinson Hyperlegible Next"],
+                      "body-md": ["Atkinson Hyperlegible Next"],
+                      "headline-md": ["Atkinson Hyperlegible Next"]
+              },
+              "fontSize": {
+                      "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.1px", "fontWeight": "600"}],
+                      "title-lg": ["20px", {"lineHeight": "26px", "fontWeight": "600"}],
+                      "body-lg": ["18px", {"lineHeight": "26px", "fontWeight": "400"}],
+                      "headline-lg": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                      "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "headline-md": ["22px", {"lineHeight": "28px", "fontWeight": "700"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .tab-active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background-color: #1B6B2F;
+            border-top-left-radius: 3px;
+            border-top-right-radius: 3px;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background font-body-md text-on-surface min-h-screen pb-32">
+<!-- TopAppBar Shell -->
+<header class="bg-surface dark:bg-surface-container-low shadow-md docked full-width top-0 z-50 h-16 flex justify-between items-center px-4 w-full">
+<div class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed flex items-center gap-2">
+<span class="material-symbols-outlined" data-icon="eco">eco</span>
+            PlantCure AI
+        </div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined p-2 rounded-full hover:bg-surface-container-high transition-colors" data-icon="search">search</button>
+<button class="material-symbols-outlined p-2 rounded-full hover:bg-surface-container-high transition-colors" data-icon="more_vert">more_vert</button>
+</div>
+</header>
+<!-- Disease Result Banner -->
+<section class="w-full bg-[#B71C1C] text-white pt-6 pb-8 px-gutter">
+<div class="max-w-screen-md mx-auto">
+<div class="flex justify-between items-start mb-2">
+<div>
+<p class="font-body-md text-white/90">Tomato</p>
+<h1 class="font-headline-lg text-headline-lg font-bold leading-tight">Tomato Late Blight</h1>
+</div>
+<span class="bg-white text-[#B71C1C] px-3 py-1 rounded-full font-label-lg text-label-lg tracking-wider">HIGH SEVERITY</span>
+</div>
+<!-- Confidence Bar -->
+<div class="mt-6">
+<div class="flex justify-between items-center mb-1.5">
+<span class="font-label-lg text-white">Analysis Confidence</span>
+<span class="font-label-lg text-white font-bold">85% Confidence</span>
+</div>
+<div class="w-full h-3 bg-black/20 rounded-full overflow-hidden border border-white/10">
+<div class="h-full bg-white rounded-full" style="width: 85%;"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Tab Navigation -->
+<nav class="bg-white sticky top-16 z-40 border-b border-outline-variant">
+<div class="flex max-w-screen-md mx-auto">
+<button class="flex-1 py-4 font-label-lg text-label-lg text-on-surface-variant relative">About</button>
+<button class="flex-1 py-4 font-label-lg text-label-lg text-primary relative tab-active">Symptoms</button>
+<button class="flex-1 py-4 font-label-lg text-label-lg text-on-surface-variant relative">Prevention</button>
+<button class="flex-1 py-4 font-label-lg text-label-lg text-on-surface-variant relative">Market</button>
+</div>
+</nav>
+<!-- Content Area: Bento-inspired layout -->
+<main class="max-w-screen-md mx-auto px-gutter mt-6">
+<div class="bg-white rounded-xl shadow-sm border border-[#E0E0E0] overflow-hidden">
+<div class="p-md bg-surface-container-lowest border-b border-outline-variant">
+<h2 class="font-title-lg text-title-lg flex items-center gap-2">
+<span class="material-symbols-outlined text-[#B71C1C]" data-icon="warning" data-weight="fill" style="font-variation-settings: 'FILL' 1;">warning</span>
+                    Observed Symptoms
+                </h2>
+</div>
+<div class="p-lg">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-lg">
+<!-- Image Reference Card -->
+<div class="relative rounded-xl overflow-hidden aspect-video shadow-md">
+<img class="w-full h-full object-cover" data-alt="A macro close-up of a tomato leaf infected with Late Blight. The leaf displays large, irregular dark brown necrotic spots surrounded by a pale yellowish halo. The lighting is bright and outdoor-natural, emphasizing the high-contrast textures of the fungal decay. This educational medical image for agriculture maintain a clean, scientific, and professional light-mode aesthetic with rich earthy colors." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCB6dJbeIFD-w7Laq_XfnNQjK6RWa9Up_393IBTKqupUeCePzFoQvuSInoj36zFctQoUGrUe_2Cc7HnF_M1aXjFbPktAYQza9EPzbNv5LpJR8lzotayqCx1x6yX1m4N6i6TG7sRJgKzw3N37n2R6S89wVz8rHg45-LlLMrHrV-GC_2bcYhzh-Jx1WLNv7ltLpRXOhEFo8o2V19E3bO3rJ_r-OASX4C0VircxXjjleE6rumjPZe6B04jmKbgGLYtZOjtmCfDu_BUJg"/>
+<div class="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/80 to-transparent">
+<p class="text-white text-xs font-label-lg">Reference: Tomato Late Blight infection</p>
+</div>
+</div>
+<!-- Symptoms List -->
+<ul class="space-y-4">
+<li class="flex items-start gap-4">
+<span class="material-symbols-outlined text-[#B71C1C] mt-0.5" data-icon="fiber_manual_record" data-weight="fill" style="font-variation-settings: 'FILL' 1; font-size: 16px;">fiber_manual_record</span>
+<span class="font-body-lg text-body-lg text-on-surface">Dark brown spots on leaves</span>
+</li>
+<li class="flex items-start gap-4">
+<span class="material-symbols-outlined text-[#B71C1C] mt-0.5" data-icon="fiber_manual_record" data-weight="fill" style="font-variation-settings: 'FILL' 1; font-size: 16px;">fiber_manual_record</span>
+<span class="font-body-lg text-body-lg text-on-surface">White mold visible under leaves</span>
+</li>
+<li class="flex items-start gap-4">
+<span class="material-symbols-outlined text-[#B71C1C] mt-0.5" data-icon="fiber_manual_record" data-weight="fill" style="font-variation-settings: 'FILL' 1; font-size: 16px;">fiber_manual_record</span>
+<span class="font-body-lg text-body-lg text-on-surface">Stems turn dark and rot</span>
+</li>
+<li class="flex items-start gap-4">
+<span class="material-symbols-outlined text-[#B71C1C] mt-0.5" data-icon="fiber_manual_record" data-weight="fill" style="font-variation-settings: 'FILL' 1; font-size: 16px;">fiber_manual_record</span>
+<span class="font-body-lg text-body-lg text-on-surface">Fruit develops water-soaked lesions</span>
+</li>
+</ul>
+</div>
+<!-- Guidance Info Box -->
+<div class="mt-8 p-md rounded-lg bg-error-container/30 border border-error-container flex gap-4">
+<span class="material-symbols-outlined text-error" data-icon="info">info</span>
+<p class="font-body-md text-on-error-container">
+                        Late blight is caused by the fungus-like organism <span class="italic">Phytophthora infestans</span>. It spreads rapidly in cool, wet weather. Immediate removal of infected plants is recommended.
+                    </p>
+</div>
+</div>
+</div>
+<!-- Secondary Information Cards (Asymmetric Layout) -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md mt-md">
+<div class="bg-surface-container p-md rounded-xl border border-outline-variant">
+<h3 class="font-label-lg text-label-lg text-primary uppercase tracking-wider mb-2">Affected Areas</h3>
+<p class="font-body-md text-on-surface">Primarily leaves and fruit. Stems may show secondary infection leading to plant collapse.</p>
+</div>
+<div class="bg-surface-container p-md rounded-xl border border-outline-variant">
+<h3 class="font-label-lg text-label-lg text-primary uppercase tracking-wider mb-2">Spread Speed</h3>
+<p class="font-body-md text-on-surface">Very High. Can destroy a whole field within 7-10 days if left untreated.</p>
+</div>
+</div>
+</main>
+<!-- Stacked Action FABs -->
+<div class="fixed bottom-24 right-6 flex flex-col gap-4 z-50">
+<!-- Listen FAB (Top) -->
+<button class="w-14 h-14 bg-[#F57F17] text-white rounded-full shadow-lg flex items-center justify-center active:scale-90 transition-transform duration-150">
+<span class="material-symbols-outlined" data-icon="mic" data-weight="fill" style="font-variation-settings: 'FILL' 1;">mic</span>
+</button>
+<!-- Share FAB (Bottom) -->
+<button class="w-14 h-14 bg-[#1B6B2F] text-white rounded-full shadow-lg flex items-center justify-center active:scale-90 transition-transform duration-150">
+<span class="material-symbols-outlined" data-icon="share">share</span>
+</button>
+</div>
+<!-- BottomNavBar Shell -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-2 pb-safe bg-surface dark:bg-surface-container-low h-20 border-t border-outline-variant dark:border-outline shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] z-50">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-5 py-1.5 hover:bg-surface-variant transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-label-lg text-label-lg">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-5 py-1.5 transition-transform active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+<span class="font-label-lg text-label-lg">History</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-5 py-1.5 hover:bg-surface-variant transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="storefront">storefront</span>
+<span class="font-label-lg text-label-lg">Market</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-5 py-1.5 hover:bg-surface-variant transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="groups">groups</span>
+<span class="font-label-lg text-label-lg">Community</span>
+</a>
+</nav>
+</body></html>

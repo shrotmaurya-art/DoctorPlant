@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AgriBot - PlantCure AI</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "background": "#f7fbf2",
+                        "tertiary-fixed-dim": "#98d59c",
+                        "secondary-fixed-dim": "#ffb787",
+                        "inverse-surface": "#2d322c",
+                        "on-primary": "#ffffff",
+                        "primary-container": "#1b6b2f",
+                        "secondary-fixed": "#ffdcc7",
+                        "on-secondary-container": "#612d00",
+                        "error": "#ba1a1a",
+                        "on-primary-fixed": "#002107",
+                        "on-surface-variant": "#40493f",
+                        "on-secondary-fixed-variant": "#723600",
+                        "surface": "#f7fbf2",
+                        "primary-fixed": "#a4f5a9",
+                        "surface-bright": "#f7fbf2",
+                        "error-container": "#ffdad6",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-high": "#e5e9e1",
+                        "on-tertiary-fixed": "#002108",
+                        "secondary-container": "#fe851f",
+                        "on-primary-fixed-variant": "#00531d",
+                        "tertiary-container": "#30693a",
+                        "on-surface": "#181d18",
+                        "inverse-on-surface": "#eef2e9",
+                        "surface-tint": "#1d6c30",
+                        "inverse-primary": "#89d88f",
+                        "primary": "#00511d",
+                        "outline": "#707a6e",
+                        "on-primary-container": "#99e99e",
+                        "surface-variant": "#e0e4db",
+                        "primary-fixed-dim": "#89d88f",
+                        "on-secondary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "secondary": "#964900",
+                        "outline-variant": "#bfc9bc",
+                        "on-tertiary-fixed-variant": "#175125",
+                        "surface-container": "#ebefe6",
+                        "surface-container-low": "#f1f5ec",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-fixed": "#311300",
+                        "tertiary": "#155025",
+                        "on-tertiary-container": "#a8e6ab",
+                        "tertiary-fixed": "#b3f2b6",
+                        "on-error": "#ffffff",
+                        "on-background": "#181d18",
+                        "surface-dim": "#d7dbd3",
+                        "surface-container-highest": "#e0e4db"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "lg": "24px",
+                        "gutter": "16px",
+                        "xl": "32px",
+                        "md": "16px",
+                        "sm": "12px",
+                        "touch-target": "48px",
+                        "container-margin": "16px",
+                        "base": "8px",
+                        "xs": "4px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Atkinson Hyperlegible Next"],
+                        "body-md": ["Atkinson Hyperlegible Next"],
+                        "headline-lg": ["Atkinson Hyperlegible Next"],
+                        "body-lg": ["Atkinson Hyperlegible Next"],
+                        "title-lg": ["Atkinson Hyperlegible Next"],
+                        "label-lg": ["Atkinson Hyperlegible Next"],
+                        "headline-lg-mobile": ["Atkinson Hyperlegible Next"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["22px", {"lineHeight": "28px", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "26px", "fontWeight": "400"}],
+                        "title-lg": ["20px", {"lineHeight": "26px", "fontWeight": "600"}],
+                        "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.1px", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Atkinson Hyperlegible Next', sans-serif; background-color: #FAFAFA; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="flex flex-col h-screen overflow-hidden">
+<!-- TopAppBar Component (Mapped from JSON) -->
+<header class="flex items-center justify-between px-gutter h-[64px] w-full z-50 shadow-sm bg-primary text-on-primary">
+<div class="flex items-center gap-4">
+<button class="active:scale-95 transition-transform flex items-center justify-center w-10 h-10 hover:bg-white/10 rounded-full">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<div class="flex flex-col">
+<h1 class="font-headline-md text-headline-md leading-tight">AgriBot — Tomato Late Blight</h1>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button class="material-symbols-outlined hover:bg-white/10 p-2 rounded-full">more_vert</button>
+</div>
+</header>
+<!-- Context & Suggestion Section -->
+<div class="bg-surface border-b border-outline-variant z-40">
+<!-- Disease Context Chip -->
+<div class="px-gutter py-2 bg-secondary-container flex items-center gap-2">
+<span class="material-symbols-outlined text-on-secondary-container" style="font-variation-settings: 'FILL' 1;">warning</span>
+<span class="font-label-lg text-label-lg text-on-secondary-container">Answering about: Tomato Late Blight | High Severity</span>
+</div>
+<!-- Suggestion Chips -->
+<div class="flex gap-2 px-gutter py-3 overflow-x-auto hide-scrollbar">
+<button class="whitespace-nowrap px-4 py-2 bg-surface-container-high text-on-surface rounded-full font-label-lg text-label-lg hover:bg-surface-variant transition-colors border border-outline-variant">Organic treatment?</button>
+<button class="whitespace-nowrap px-4 py-2 bg-surface-container-high text-on-surface rounded-full font-label-lg text-label-lg hover:bg-surface-variant transition-colors border border-outline-variant">How long to recover?</button>
+<button class="whitespace-nowrap px-4 py-2 bg-surface-container-high text-on-surface rounded-full font-label-lg text-label-lg hover:bg-surface-variant transition-colors border border-outline-variant">Best pesticide?</button>
+</div>
+</div>
+<!-- Main Chat Canvas -->
+<main class="flex-1 overflow-y-auto p-gutter space-y-md">
+<!-- AI Message -->
+<div class="flex items-end gap-2 max-w-[85%]">
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center flex-shrink-0 mb-1">
+<span class="material-symbols-outlined text-white text-[18px]" style="font-variation-settings: 'FILL' 1;">eco</span>
+</div>
+<div class="bg-white p-md rounded-2xl rounded-bl-none shadow-sm border border-outline-variant">
+<p class="font-body-md text-body-md text-on-surface">Hello! I've analyzed your tomato plant scan. It shows signs of Late Blight with high severity. How can I help you manage this?</p>
+<p class="text-[10px] text-on-surface-variant mt-1 text-right">10:30 AM</p>
+</div>
+</div>
+<!-- User Message -->
+<div class="flex justify-end w-full">
+<div class="max-w-[85%] bg-primary p-md rounded-2xl rounded-br-none shadow-md">
+<p class="font-body-md text-body-md text-on-primary">What are the first steps I should take?</p>
+<p class="text-[10px] text-on-primary/70 mt-1 text-right">10:31 AM</p>
+</div>
+</div>
+<!-- AI Message -->
+<div class="flex items-end gap-2 max-w-[85%]">
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center flex-shrink-0 mb-1">
+<span class="material-symbols-outlined text-white text-[18px]" style="font-variation-settings: 'FILL' 1;">eco</span>
+</div>
+<div class="bg-white p-md rounded-2xl rounded-bl-none shadow-sm border border-outline-variant">
+<p class="font-body-md text-body-md text-on-surface">First, isolate infected plants to prevent spreading. Remove and destroy heavily affected leaves. Avoid overhead watering.</p>
+<div class="mt-3 flex flex-col gap-2">
+<div class="rounded-xl overflow-hidden border border-outline-variant">
+<img class="w-full h-32 object-cover" data-alt="A macro photography shot of a tomato plant leaf infected with late blight, showing characteristic dark water-soaked spots and fuzzy white fungal growth on the underside. The image uses natural, high-contrast sunlight to emphasize the texture of the decay against the vibrant green of healthy tissue. The overall aesthetic is professional, clinical, and high-fidelity, matching an agricultural diagnostic interface with earthy tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFwDrBdNc8fazn-DzQr2NbgPDF7EBZ1qtC2oYM3OKvZDtNOdh1uCt83cYB41hYFFWb9QuY1iZulrN5HSWLbUg_aMvymbF_HQh7cdwJEYqxlJPgNgwlePAt6FRupqlBVylOX3ohZW9aOPAWz1Tg6i7G59QY2ujrKGYFXYR0q_GzT1X2lzxC6_BiZMyrHLycHqDDAyXJrLLfUfKa7IMcUmPnjocFH2MfjEQH_RvuPuBYzBpCKPW13f4E0yyHy019AUfTCh7vmsxUng"/>
+</div>
+</div>
+<p class="text-[10px] text-on-surface-variant mt-1 text-right">10:32 AM</p>
+</div>
+</div>
+<!-- Typing Indicator -->
+<div class="flex items-end gap-2">
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center flex-shrink-0 mb-1">
+<span class="material-symbols-outlined text-white text-[18px]" style="font-variation-settings: 'FILL' 1;">eco</span>
+</div>
+<div class="bg-white px-4 py-3 rounded-2xl rounded-bl-none shadow-sm border border-outline-variant flex gap-1">
+<div class="w-1.5 h-1.5 bg-outline rounded-full animate-bounce"></div>
+<div class="w-1.5 h-1.5 bg-outline rounded-full animate-bounce [animation-delay:0.2s]"></div>
+<div class="w-1.5 h-1.5 bg-outline rounded-full animate-bounce [animation-delay:0.4s]"></div>
+</div>
+</div>
+</main>
+<!-- Bottom Input Area -->
+<footer class="p-gutter bg-surface-container-lowest border-t border-outline-variant flex items-center gap-3">
+<div class="flex-1 bg-surface-container-low rounded-full px-4 h-[56px] flex items-center border border-outline-variant">
+<button class="material-symbols-outlined text-on-surface-variant mr-2">sentiment_satisfied</button>
+<input class="flex-1 bg-transparent border-none focus:ring-0 font-body-md text-body-md text-on-surface h-full" placeholder="Ask about this disease..." type="text"/>
+<button class="material-symbols-outlined text-on-surface-variant ml-2">attach_file</button>
+<button class="material-symbols-outlined text-on-surface-variant ml-2">photo_camera</button>
+</div>
+<button class="w-[56px] h-[56px] bg-primary-container text-on-primary rounded-full flex items-center justify-center shadow-lg active:scale-90 transition-transform">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">send</span>
+</button>
+</footer>
+<!-- BottomNavBar Component (Mapped from JSON) -->
+<!-- Suppressed based on "Task-Focused" rule: This is a sub-page with a back action implying temporary departure from global nav -->
+</body></html>

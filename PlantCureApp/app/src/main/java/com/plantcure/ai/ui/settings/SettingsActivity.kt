@@ -46,6 +46,9 @@ class SettingsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySettingsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        window.enterTransition = android.transition.Slide(android.view.Gravity.BOTTOM).apply {
+            duration = 300
+        }
 
         setupToolbar()
         setupLanguageSelector()

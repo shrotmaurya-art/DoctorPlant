@@ -15,7 +15,8 @@ import javax.inject.Inject
 @HiltViewModel
 class ResultViewModel @Inject constructor(
     private val diseaseRepository: DiseaseRepository,
-    private val historyRepository: ScanHistoryRepository
+    private val historyRepository: ScanHistoryRepository,
+    private val treatmentDao: com.plantcure.ai.data.local.dao.TreatmentScheduleDao
 ) : ViewModel() {
 
     private val _disease = MutableLiveData<Disease?>()
@@ -23,6 +24,9 @@ class ResultViewModel @Inject constructor(
 
     private val _detectionResult = MutableLiveData<DetectionResult>()
     val detectionResult: LiveData<DetectionResult> = _detectionResult
+
+    private val _scheduleCreated = MutableLiveData<Boolean>()
+    val scheduleCreated: LiveData<Boolean> = _scheduleCreated
 
     private var hasSaved = false
 
@@ -51,7 +55,7 @@ class ResultViewModel @Inject constructor(
             val cropName = disease?.affectedCrop ?: diseaseRepository.getCropName(diseaseLabel)
             val causeType = disease?.causeType ?: "Unknown"
 
-            historyRepository.saveScan(
+            val scanId = historyRepository.saveScan(
                 imagePath = imagePath,
                 diseaseName = diseaseName,
                 diseaseNameHindi = disease?.nameHindi,
@@ -60,6 +64,16 @@ class ResultViewModel @Inject constructor(
                 confidenceScore = confidence,
                 severityLevel = severity
             )
+
+            if (disease != null) {
+                val schedule = com.plantcure.ai.util.TreatmentScheduleGenerator.generateSchedule(
+                    scanId = scanId.toInt(),
+                    disease = disease,
+                    severity = severity
+                )
+                treatmentDao.insertAll(schedule)
+                _scheduleCreated.postValue(true)
+            }
             hasSaved = true
         }
     }

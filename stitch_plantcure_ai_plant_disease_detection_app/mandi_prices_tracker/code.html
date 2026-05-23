@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Krishi Mandi - Mandi Prices</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface": "#181d18",
+                        "primary-fixed-dim": "#89d88f",
+                        "primary-fixed": "#a4f5a9",
+                        "primary": "#00511d",
+                        "error": "#ba1a1a",
+                        "on-primary": "#ffffff",
+                        "surface-container-high": "#e5e9e1",
+                        "inverse-surface": "#2d322c",
+                        "tertiary-fixed": "#b3f2b6",
+                        "secondary-container": "#fe851f",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-fixed-variant": "#00531d",
+                        "surface-container": "#ebefe6",
+                        "secondary-fixed-dim": "#ffb787",
+                        "surface-container-low": "#f1f5ec",
+                        "on-tertiary-fixed-variant": "#175125",
+                        "inverse-on-surface": "#eef2e9",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-container": "#a8e6ab",
+                        "secondary": "#964900",
+                        "surface-variant": "#e0e4db",
+                        "outline-variant": "#bfc9bc",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-fixed": "#311300",
+                        "tertiary-fixed-dim": "#98d59c",
+                        "on-secondary-fixed-variant": "#723600",
+                        "surface": "#f7fbf2",
+                        "secondary-fixed": "#ffdcc7",
+                        "surface-dim": "#d7dbd3",
+                        "on-primary-container": "#99e99e",
+                        "surface-bright": "#f7fbf2",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary-fixed": "#002108",
+                        "on-error": "#ffffff",
+                        "primary-container": "#1b6b2f",
+                        "error-container": "#ffdad6",
+                        "on-secondary-container": "#612d00",
+                        "on-primary-fixed": "#002107",
+                        "tertiary-container": "#30693a",
+                        "outline": "#707a6e",
+                        "on-surface-variant": "#40493f",
+                        "tertiary": "#155025",
+                        "surface-container-highest": "#e0e4db",
+                        "on-background": "#181d18",
+                        "background": "#f7fbf2",
+                        "inverse-primary": "#89d88f",
+                        "surface-tint": "#1d6c30"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xl": "32px",
+                        "lg": "24px",
+                        "touch-target": "48px",
+                        "base": "8px",
+                        "md": "16px",
+                        "xs": "4px",
+                        "sm": "12px",
+                        "container-margin": "16px",
+                        "gutter": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Atkinson Hyperlegible Next"],
+                        "body-lg": ["Atkinson Hyperlegible Next"],
+                        "label-lg": ["Atkinson Hyperlegible Next"],
+                        "body-md": ["Atkinson Hyperlegible Next"],
+                        "headline-lg": ["Atkinson Hyperlegible Next"],
+                        "title-lg": ["Atkinson Hyperlegible Next"],
+                        "headline-md": ["Atkinson Hyperlegible Next"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "26px", "fontWeight": "400"}],
+                        "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.1px", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                        "title-lg": ["20px", {"lineHeight": "26px", "fontWeight": "600"}],
+                        "headline-md": ["22px", {"lineHeight": "28px", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Atkinson Hyperlegible Next', sans-serif; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface min-h-screen pb-24">
+<!-- Top AppBar -->
+<header class="sticky top-0 z-50 bg-primary text-on-primary shadow-md flex justify-between items-center px-container-margin h-touch-target w-full">
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined active:scale-95 transition-transform" data-icon="arrow_back">arrow_back</button>
+<h1 class="font-headline-md text-headline-md font-bold">Mandi Prices</h1>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined active:scale-95 transition-transform" data-icon="filter_list">filter_list</button>
+</div>
+</header>
+<!-- Offline Banner -->
+<div class="bg-[#FFF8E1] text-[#795548] px-container-margin py-base flex items-center gap-2 text-label-lg font-label-lg border-b border-[#FFE082]">
+<span class="material-symbols-outlined text-sm" data-icon="schedule" style="font-variation-settings: 'FILL' 1;">schedule</span>
+<span>Offline — prices last updated 2 hours ago</span>
+</div>
+<!-- Filters Canvas -->
+<div class="bg-surface py-md flex flex-col gap-md sticky top-[48px] z-40 border-b border-outline-variant">
+<!-- Crop Selector -->
+<div class="flex overflow-x-auto hide-scrollbar gap-sm px-container-margin">
+<button class="flex-none bg-primary-container text-on-primary-container px-lg py-sm rounded-full font-label-lg text-label-lg shadow-sm border border-primary">Tomato</button>
+<button class="flex-none bg-surface border border-outline px-lg py-sm rounded-full font-label-lg text-label-lg text-on-surface hover:bg-surface-container-low transition-colors">Potato</button>
+<button class="flex-none bg-surface border border-outline px-lg py-sm rounded-full font-label-lg text-label-lg text-on-surface hover:bg-surface-container-low transition-colors">Wheat</button>
+<button class="flex-none bg-surface border border-outline px-lg py-sm rounded-full font-label-lg text-label-lg text-on-surface hover:bg-surface-container-low transition-colors">Rice</button>
+<button class="flex-none bg-surface border border-outline px-lg py-sm rounded-full font-label-lg text-label-lg text-on-surface hover:bg-surface-container-low transition-colors">Cotton</button>
+</div>
+<!-- State Selector -->
+<div class="px-container-margin">
+<div class="inline-flex items-center gap-xs bg-surface-container-high px-md py-xs rounded-lg border border-outline-variant shadow-sm">
+<span class="material-symbols-outlined text-primary" data-icon="location_on" style="font-variation-settings: 'FILL' 1;">location_on</span>
+<span class="font-label-lg text-label-lg text-on-surface">Maharashtra</span>
+</div>
+</div>
+</div>
+<!-- Price Cards List -->
+<main class="p-container-margin space-y-md">
+<!-- Card 1 -->
+<article class="bg-surface-container-lowest p-md rounded-xl shadow-sm border border-outline-variant">
+<div class="flex justify-between items-start mb-sm">
+<div>
+<h2 class="font-title-lg text-title-lg text-on-surface">Vashi APMC, Navi Mumbai</h2>
+<p class="font-label-lg text-label-lg text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="apartment">apartment</span>
+                        Thane, Maharashtra
+                    </p>
+</div>
+<div class="flex flex-col items-end">
+<span class="bg-[#C8E6C9] text-[#1B5E20] px-sm py-1 rounded-full font-label-lg text-label-lg flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="trending_up">trending_up</span>
+                        ↑ +8%
+                    </span>
+<span class="text-[10px] text-on-surface-variant mt-1">vs 7-day avg</span>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-base bg-surface-container-low p-sm rounded-lg border border-outline-variant">
+<div class="text-center">
+<p class="text-[10px] uppercase tracking-wider text-on-surface-variant">Min</p>
+<p class="font-bold text-on-surface">₹1,200</p>
+</div>
+<div class="text-center border-x border-outline-variant">
+<p class="text-[10px] uppercase tracking-wider text-on-surface-variant">Modal</p>
+<p class="font-bold text-primary text-lg">₹2,100</p>
+</div>
+<div class="text-center">
+<p class="text-[10px] uppercase tracking-wider text-on-surface-variant">Max</p>
+<p class="font-bold text-on-surface">₹2,800</p>
+</div>
+</div>
+<p class="text-[11px] text-on-surface-variant mt-sm text-center italic">Price per quintal (100kg)</p>
+</article>
+<!-- Card 2 -->
+<article class="bg-surface-container-lowest p-md rounded-xl shadow-sm border border-outline-variant">
+<div class="flex justify-between items-start mb-sm">
+<div>
+<h2 class="font-title-lg text-title-lg text-on-surface">Pune APMC</h2>
+<p class="font-label-lg text-label-lg text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="apartment">apartment</span>
+                        Pune, Maharashtra
+                    </p>
+</div>
+<div class="flex flex-col items-end">
+<span class="bg-[#FFCDD2] text-[#B71C1C] px-sm py-1 rounded-full font-label-lg text-label-lg flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="trending_down">trending_down</span>
+                        ↓ -3%
+                    </span>
+<span class="text-[10px] text-on-surface-variant mt-1">vs 7-day avg</span>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-base bg-surface-container-low p-sm rounded-lg border border-outline-variant">
+<div class="text-center">
+<p class="text-[10px] uppercase tracking-wider text-on-surface-variant">Min</p>
+<p class="font-bold text-on-surface">₹1,100</p>
+</div>
+<div class="text-center border-x border-outline-variant">
+<p class="text-[10px] uppercase tracking-wider text-on-surface-variant">Modal</p>
+<p class="font-bold text-primary text-lg">₹1,950</p>
+</div>
+<div class="text-center">
+<p class="text-[10px] uppercase tracking-wider text-on-surface-variant">Max</p>
+<p class="font-bold text-on-surface">₹2,600</p>
+</div>
+</div>
+</article>
+<!-- Card 3 -->
+<article class="bg-surface-container-lowest p-md rounded-xl shadow-sm border border-outline-variant">
+<div class="flex justify-between items-start mb-sm">
+<div>
+<h2 class="font-title-lg text-title-lg text-on-surface">Nashik APMC</h2>
+<p class="font-label-lg text-label-lg text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="apartment">apartment</span>
+                        Nashik, Maharashtra
+                    </p>
+</div>
+<div class="flex flex-col items-end">
+<span class="bg-[#C8E6C9] text-[#1B5E20] px-sm py-1 rounded-full font-label-lg text-label-lg flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="trending_up">trending_up</span>
+                        ↑ +5%
+                    </span>
+<span class="text-[10px] text-on-surface-variant mt-1">vs 7-day avg</span>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-base bg-surface-container-low p-sm rounded-lg border border-outline-variant">
+<div class="text-center">
+<p class="text-[10px] uppercase tracking-wider text-on-surface-variant">Min</p>
+<p class="font-bold text-on-surface">₹1,300</p>
+</div>
+<div class="text-center border-x border-outline-variant">
+<p class="text-[10px] uppercase tracking-wider text-on-surface-variant">Modal</p>
+<p class="font-bold text-primary text-lg">₹2,200</p>
+</div>
+<div class="text-center">
+<p class="text-[10px] uppercase tracking-wider text-on-surface-variant">Max</p>
+<p class="font-bold text-on-surface">₹2,900</p>
+</div>
+</div>
+</article>
+<!-- Card 4 -->
+<article class="bg-surface-container-lowest p-md rounded-xl shadow-sm border border-outline-variant">
+<div class="flex justify-between items-start mb-sm">
+<div>
+<h2 class="font-title-lg text-title-lg text-on-surface">Nagpur APMC</h2>
+<p class="font-label-lg text-label-lg text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="apartment">apartment</span>
+                        Nagpur, Maharashtra
+                    </p>
+</div>
+<div class="flex flex-col items-end">
+<span class="bg-surface-variant text-on-surface-variant px-sm py-1 rounded-full font-label-lg text-label-lg flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="horizontal_rule">horizontal_rule</span>
+                        No change
+                    </span>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-base bg-surface-container-low p-sm rounded-lg border border-outline-variant">
+<div class="text-center">
+<p class="text-[10px] uppercase tracking-wider text-on-surface-variant">Min</p>
+<p class="font-bold text-on-surface">₹1,150</p>
+</div>
+<div class="text-center border-x border-outline-variant">
+<p class="text-[10px] uppercase tracking-wider text-on-surface-variant">Modal</p>
+<p class="font-bold text-primary text-lg">₹2,050</p>
+</div>
+<div class="text-center">
+<p class="text-[10px] uppercase tracking-wider text-on-surface-variant">Max</p>
+<p class="font-bold text-on-surface">₹2,700</p>
+</div>
+</div>
+</article>
+</main>
+<!-- FAB -->
+<button class="fixed bottom-24 right-md w-[96px] h-[96px] bg-secondary-container text-on-secondary-container rounded-full shadow-lg flex items-center justify-center active:scale-90 transition-all duration-150 z-50">
+<span class="material-symbols-outlined text-4xl" data-icon="notifications" style="font-variation-settings: 'FILL' 1;">notifications</span>
+</button>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-20 pb-2 px-2 bg-surface-container dark:bg-surface-container-high shadow-md">
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1 hover:bg-surface-container-highest transition-all active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-label-lg text-label-lg">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1 hover:bg-surface-container-highest transition-all active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="history_edu">history_edu</span>
+<span class="font-label-lg text-label-lg">History</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-5 py-1 transition-all active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="storefront" style="font-variation-settings: 'FILL' 1;">storefront</span>
+<span class="font-label-lg text-label-lg">Market</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1 hover:bg-surface-container-highest transition-all active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="groups">groups</span>
+<span class="font-label-lg text-label-lg">Community</span>
+</a>
+</nav>
+</body></html>

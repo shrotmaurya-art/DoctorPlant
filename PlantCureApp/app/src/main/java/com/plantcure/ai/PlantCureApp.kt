@@ -36,6 +36,18 @@ class PlantCureApp : Application(), Configuration.Provider {
 
         createNotificationChannels()
         signInAnonymously()
+        scheduleReminders()
+    }
+
+    private fun scheduleReminders() {
+        val workRequest = androidx.work.PeriodicWorkRequestBuilder<com.plantcure.ai.worker.ReminderWorker>(
+            24, java.util.concurrent.TimeUnit.HOURS
+        ).build()
+        androidx.work.WorkManager.getInstance(this).enqueueUniquePeriodicWork(
+            "treatment_reminders_work",
+            androidx.work.ExistingPeriodicWorkPolicy.KEEP,
+            workRequest
+        )
     }
 
     /**

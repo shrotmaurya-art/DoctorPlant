@@ -1,5 +1,6 @@
 package com.plantcure.ai.ui.history
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -42,6 +43,11 @@ class HistoryFragment : Fragment() {
         setupRecyclerView()
         setupSearchAndFilters()
         observeData()
+
+        binding.btnOpenMap.setOnClickListener {
+            val intent = Intent(requireContext(), com.plantcure.ai.ui.map.FieldMapActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun setupRecyclerView() {
@@ -113,14 +119,24 @@ class HistoryFragment : Fragment() {
                 launch {
                     viewModel.stats.collect { stats ->
                         stats?.let {
-                            binding.tvTotalScans.text = it.totalScans.toString()
+                            animateCountUp(binding.tvTotalScans, it.totalScans)
                             binding.tvMostCommon.text = it.mostCommonDisease ?: "-"
-                            binding.tvThisMonth.text = it.scansThisMonth.toString()
+                            animateCountUp(binding.tvThisMonth, it.scansThisMonth)
                         }
                     }
                 }
             }
         }
+    }
+
+    private fun animateCountUp(textView: android.widget.TextView, finalValue: Int) {
+        val animator = android.animation.ValueAnimator.ofInt(0, finalValue)
+        animator.duration = 1000
+        animator.interpolator = android.view.animation.DecelerateInterpolator()
+        animator.addUpdateListener {
+            textView.text = it.animatedValue.toString()
+        }
+        animator.start()
     }
 
     override fun onDestroyView() { 

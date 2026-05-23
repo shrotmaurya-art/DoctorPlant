@@ -16,9 +16,4 @@
         android:icon="@android:drawable/ic_menu_agenda"
         android:title="@string/nav_market" />
 
-    <item
-        android:id="@+id/communityFragment"
-        android:icon="@android:drawable/ic_menu_myplaces"
-        android:title="@string/nav_community" />
-
 </menu>

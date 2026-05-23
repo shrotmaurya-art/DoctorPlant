@@ -50,6 +50,39 @@ class ResultFragment : Fragment() {
 
         // Load data and auto-save if new scan
         viewModel.loadResult(args.imagePath, args.diseaseLabel, args.confidence, args.scanId)
+
+        setupAnimations()
+    }
+
+    private fun setupAnimations() {
+        // 1. Header Banner slide down
+        binding.appBarLayout.translationY = -200f * resources.displayMetrics.density
+        binding.appBarLayout.animate()
+            .translationY(0f)
+            .setDuration(400)
+            .setInterpolator(android.view.animation.DecelerateInterpolator())
+            .start()
+
+        // 2. FABs scale with OvershootInterpolator
+        binding.fabListen.scaleX = 0f
+        binding.fabListen.scaleY = 0f
+        binding.fabListen.animate()
+            .scaleX(1f)
+            .scaleY(1f)
+            .setDuration(400)
+            .setStartDelay(200)
+            .setInterpolator(android.view.animation.OvershootInterpolator())
+            .start()
+
+        binding.fabShare.scaleX = 0f
+        binding.fabShare.scaleY = 0f
+        binding.fabShare.animate()
+            .scaleX(1f)
+            .scaleY(1f)
+            .setDuration(400)
+            .setStartDelay(300)
+            .setInterpolator(android.view.animation.OvershootInterpolator())
+            .start()
     }
 
     private fun setupUI() {
@@ -135,8 +168,20 @@ class ResultFragment : Fragment() {
     private fun observeData() {
         viewModel.detectionResult.observe(viewLifecycleOwner) { result ->
             // Confidence Bar
-            binding.tvConfidenceValue.text = "${(result.confidence * 100).toInt()}%"
-            binding.progressConfidence.progress = (result.confidence * 100).toInt()
+            val confidenceInt = (result.confidence * 100).toInt()
+            
+            android.animation.ObjectAnimator.ofInt(binding.progressConfidence, "progress", 0, confidenceInt).apply {
+                duration = 1000
+                interpolator = android.view.animation.DecelerateInterpolator()
+                start()
+            }
+            
+            val valueAnimator = android.animation.ValueAnimator.ofInt(0, confidenceInt)
+            valueAnimator.duration = 1000
+            valueAnimator.addUpdateListener { animator ->
+                binding.tvConfidenceValue.text = "${animator.animatedValue}%"
+            }
+            valueAnimator.start()
 
             // Severity Chip
             binding.chipSeverity.text = "${result.severity.uppercase()} SEVERITY"
@@ -151,6 +196,18 @@ class ResultFragment : Fragment() {
         viewModel.disease.observe(viewLifecycleOwner) { disease ->
             binding.tvDiseaseName.text = disease?.name ?: args.diseaseLabel
             binding.tvCropName.text = disease?.affectedCrop ?: ""
+        }
+
+        viewModel.scheduleCreated.observe(viewLifecycleOwner) { created ->
+            if (created == true) {
+                com.google.android.material.snackbar.Snackbar.make(
+                    binding.root,
+                    "Treatment schedule created successfully!",
+                    com.google.android.material.snackbar.Snackbar.LENGTH_LONG
+                ).setAction("VIEW") {
+                    startActivity(Intent(requireContext(), com.plantcure.ai.ui.calendar.CalendarActivity::class.java))
+                }.show()
+            }
         }
     }
 
