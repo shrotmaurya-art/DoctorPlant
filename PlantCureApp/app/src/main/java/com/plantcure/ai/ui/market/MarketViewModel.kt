@@ -40,6 +40,9 @@ class MarketViewModel @Inject constructor(
     private val _refreshFailed = MutableStateFlow(false)
     val refreshFailed: StateFlow<Boolean> = _refreshFailed
 
+    private val _refreshStatusCode = MutableStateFlow<Int?>(null)
+    val refreshStatusCode: StateFlow<Int?> = _refreshStatusCode
+
     private val statesAndDistricts = marketRepository.getStatesAndDistricts()
     val statesList = statesAndDistricts.keys.toList().sorted()
 
@@ -108,14 +111,17 @@ class MarketViewModel @Inject constructor(
         viewModelScope.launch {
             _isRefreshing.value = true
             _refreshFailed.value = false
+            _refreshStatusCode.value = null
             try {
-                val success = marketRepository.refreshPrices(
+                val statusCode = marketRepository.refreshPrices(
                     commodity = _selectedCommodity.value,
                     state = _selectedState.value,
                     district = _selectedDistrict.value
                 )
-                _refreshFailed.value = !success
+                _refreshStatusCode.value = statusCode
+                _refreshFailed.value = (statusCode != 200)
             } catch (e: Exception) {
+                _refreshStatusCode.value = 0
                 _refreshFailed.value = true
             } finally {
                 _isRefreshing.value = false

@@ -242,11 +242,19 @@ class MarketFragment : Fragment() {
                 }
 
                 launch {
-                    viewModel.refreshFailed.collect { failed ->
-                        if (failed && adapter.itemCount == 0) {
+                    viewModel.refreshStatusCode.collect { code ->
+                        if (code != null && code != 200 && adapter.itemCount == 0) {
+                            val cropName = viewModel.selectedCommodity.value
+                            val msg = when (code) {
+                                401 -> "Market data service authentication failed.\nPlease check your internet connection and try again."
+                                403 -> "Market data access denied.\nThe API key may need renewal."
+                                404 -> "No price data found for $cropName.\nTry selecting a different crop."
+                                429 -> "Too many requests. Please wait 1 minute and try again."
+                                else -> "Could not load prices (Error $code).\nShowing cached data if available."
+                            }
                             android.widget.Toast.makeText(
                                 requireContext(),
-                                "Unable to load prices. Check API key or internet.",
+                                msg,
                                 android.widget.Toast.LENGTH_LONG
                             ).show()
                         }

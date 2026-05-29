@@ -22,7 +22,7 @@ import javax.inject.Singleton
 @Singleton
 class MarketRepository @Inject constructor(
     @ApplicationContext private val context: Context,
-    private val openAiApi: OpenAiApiService,
+    private val agmarknetApi: com.plantcure.ai.data.remote.AgmarknetApiService,
     private val marketPriceDao: MarketPriceDao
 ) {
     private val CACHE_DURATION_MS = 6 * 60 * 60 * 1000L // 6 hours
@@ -87,10 +87,8 @@ class MarketRepository @Inject constructor(
         commodity: String,
         state: String? = null,
         district: String? = null
-    ): Boolean {
+    ): Int {
         val targetState = state ?: "Maharashtra"
-
-        // Normalize district name for GPS → Agmarknet mapping
         val normalizedDistrict = if (district != null && district != "All Districts") {
             normalizeDistrict(district)
         } else {
@@ -99,93 +97,56 @@ class MarketRepository @Inject constructor(
         
         android.util.Log.d("PlantCure_Market", "refreshPrices: commodity=$commodity, state=$targetState, district=$district, normalized=$normalizedDistrict")
 
-        // Check if cache is fresh enough for this commodity+state combo (4 hours)
         val lastCache = marketPriceDao.getLastCacheTimeForState(commodity, targetState)
         val cacheDuration4Hrs = 4 * 60 * 60 * 1000L
         if (lastCache != null && System.currentTimeMillis() - lastCache < cacheDuration4Hrs) {
             android.util.Log.d("PlantCure_Market", "Using cached data (age: ${(System.currentTimeMillis() - lastCache) / 60000}min)")
-            return true
+            return 200
         }
 
-        val apiKey = BuildConfig.OPENAI_API_KEY
-        if (apiKey.isBlank() || apiKey.startsWith("your_")) {
-            android.util.Log.e("PlantCure_Market", "OpenAI API key missing or placeholder")
-            return false
+        val apiKey = BuildConfig.AGMARKNET_API_KEY
+        if (apiKey.isBlank()) {
+            return 401
         }
 
         return try {
-            val targetDistrict = normalizedDistrict ?: "All Districts"
-            android.util.Log.d("PlantCure_Market", "Requesting prices from OpenAI for: $commodity in $targetDistrict, $targetState")
-            val prompt = """
-                You are an agricultural market data API. Provide current, realistic APMC (Mandi) market prices in India.
-                Return ONLY a JSON array of objects. No markdown formatting, no code blocks, just raw JSON.
-                Commodity: $commodity
-                State: $targetState
-                District: $targetDistrict
-
-                Generate 3 to 5 realistic market records.
-                If the district is "All Districts", generate major markets across the state.
-                If a specific district is provided, generate realistic APMC names for that specific district.
-                Each JSON object must have:
-                - market (String: name of the APMC or Mandi)
-                - district (String: the district name)
-                - state (String: the state name)
-                - commodity (String)
-                - minPrice (Number: price in INR per kg)
-                - maxPrice (Number: price in INR per kg)
-                - modalPrice (Number: price in INR per kg)
-                - trend (String: "up", "down", or "stable")
-            """.trimIndent()
-
-            val request = OpenAiRequest(
-                model = "gpt-3.5-turbo",
-                messages = listOf(
-                    OpenAiMessage(role = "system", content = "You return only JSON arrays. No explanation."),
-                    OpenAiMessage(role = "user", content = prompt)
-                )
+            val response = agmarknetApi.getPrices(
+                apiKey = apiKey,
+                commodity = commodity
             )
-
-            val response = openAiApi.getChatCompletion(
-                authHeader = "Bearer $apiKey",
-                request = request
-            )
+            
+            android.util.Log.d("PlantCure_Market", "URL called: ${response.raw().request.url}")
+            android.util.Log.d("PlantCure_Market", "Response code: ${response.code()}")
+            android.util.Log.d("PlantCure_Market", "Response body: ${response.errorBody()?.string()}")
 
             if (response.isSuccessful) {
-                val content = response.body()?.choices?.firstOrNull()?.message?.content
-                android.util.Log.d("PlantCure_Market", "API response content length: ${content?.length ?: 0}")
-                if (content != null) {
-                    val cleanJson = content.removePrefix("```json").removeSuffix("```").trim()
-                    
-                    val listType = object : TypeToken<List<Map<String, Any>>>() {}.type
-                    val records: List<Map<String, Any>> = Gson().fromJson(cleanJson, listType)
-                    android.util.Log.d("PlantCure_Market", "Parsed ${records.size} market records")
-                    
-                    if (records.isNotEmpty()) {
-                        val today = java.text.SimpleDateFormat("dd/MM/yyyy", java.util.Locale.getDefault()).format(java.util.Date())
-                        val entities = records.map { record ->
-                            MarketPrice(
-                                market = record["market"].toString(),
-                                district = record["district"].toString(),
-                                state = record["state"].toString(),
-                                commodity = record["commodity"].toString(),
-                                minPrice = (record["minPrice"] as? Double)?.toFloat() ?: 0f,
-                                maxPrice = (record["maxPrice"] as? Double)?.toFloat() ?: 0f,
-                                modalPrice = (record["modalPrice"] as? Double)?.toFloat() ?: 0f,
-                                priceDate = today,
-                                trend = record["trend"]?.toString() ?: "stable"
-                            )
-                        }
-                        marketPriceDao.insertAll(entities)
-                        return true
+                val records = response.body()?.records ?: emptyList()
+                
+                if (records.isNotEmpty()) {
+                    val today = java.text.SimpleDateFormat("dd/MM/yyyy", java.util.Locale.getDefault()).format(java.util.Date())
+                    val entities = records.map { record ->
+                        MarketPrice(
+                            market = record.market,
+                            district = record.district,
+                            state = record.state,
+                            commodity = record.commodity,
+                            minPrice = record.parseMinPrice(),
+                            maxPrice = record.parseMaxPrice(),
+                            modalPrice = record.parseModalPrice(),
+                            priceDate = record.arrival_date ?: today,
+                            trend = "stable"
+                        )
                     }
+                    marketPriceDao.insertAll(entities)
+                    return 200
                 }
+                return 404 // No records
             } else {
-                android.util.Log.e("PlantCure_Market", "API Error: ${response.code()} ${response.errorBody()?.string()}")
+                return response.code()
             }
-            return false
         } catch (e: Exception) {
             android.util.Log.e("PlantCure_Market", "Exception: ${e.message}", e)
-            return false
+            return 0 // Network/Unknown error
         }
     }
 

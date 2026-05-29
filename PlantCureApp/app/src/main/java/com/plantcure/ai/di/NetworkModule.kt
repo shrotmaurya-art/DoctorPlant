@@ -69,7 +69,7 @@ object NetworkModule {
     @Named("groq")
     fun provideGroqApiService(client: OkHttpClient): OpenAiApiService {
         return Retrofit.Builder()
-            .baseUrl("https://api.groq.com/openai/")
+            .baseUrl("https://api.groq.com/openai/v1/")
             .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .build()

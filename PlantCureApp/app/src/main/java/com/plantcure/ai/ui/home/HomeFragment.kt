@@ -84,8 +84,34 @@ class HomeFragment : Fragment() {
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
 
         // Navigation actions
-        binding.fabScan.setOnClickListener {
-            findNavController().navigate(HomeFragmentDirections.actionHomeToCamera())
+        binding.scanButton.setOnClickListener {
+            // Shrink and release
+            android.animation.AnimatorSet().apply {
+                play(android.animation.ObjectAnimator.ofFloat(
+                    binding.scanButtonContainer, "scaleX", 1f, 0.88f))
+                    .with(android.animation.ObjectAnimator.ofFloat(
+                        binding.scanButtonContainer, "scaleY", 1f, 0.88f))
+                duration = 120
+                addListener(object : android.animation.AnimatorListenerAdapter() {
+                    override fun onAnimationEnd(animation: android.animation.Animator) {
+                        android.animation.AnimatorSet().apply {
+                            play(android.animation.ObjectAnimator.ofFloat(
+                                binding.scanButtonContainer, "scaleX", 0.88f, 1f))
+                                .with(android.animation.ObjectAnimator.ofFloat(
+                                    binding.scanButtonContainer, "scaleY", 0.88f, 1f))
+                            duration = 200
+                            interpolator = android.view.animation.OvershootInterpolator(3f)
+                            addListener(object : android.animation.AnimatorListenerAdapter() {
+                                override fun onAnimationEnd(animation: android.animation.Animator) {
+                                    findNavController().navigate(HomeFragmentDirections.actionHomeToCamera())
+                                }
+                            })
+                            start()
+                        }
+                    }
+                })
+                start()
+            }
         }
 
         binding.cardUpload.setOnClickListener {
@@ -105,14 +131,13 @@ class HomeFragment : Fragment() {
         }
 
         // Bouncy click animations
-        addBouncyClick(binding.fabScan)
         addBouncyClick(binding.cardUpload)
         addBouncyClick(binding.cardHistory)
         addBouncyClick(binding.btnSettings)
         addBouncyClick(binding.fabChat)
 
         viewModel.isProcessing.observe(viewLifecycleOwner) { isLoading ->
-            binding.fabScan.isEnabled = !isLoading
+            binding.scanButton.isEnabled = !isLoading
             binding.cardUpload.isEnabled = !isLoading
         }
 
@@ -121,24 +146,58 @@ class HomeFragment : Fragment() {
         requestLocationAndLoad()
         
         // Custom Animations
-        setupAnimations()
+        startPulseAnimation()
+        
+        // "Tap to Scan" text bounce animation:
+        val tapText = binding.tapToScanText
+        val bounceAnim = android.animation.ObjectAnimator.ofFloat(
+            tapText, "translationY", 0f, -8f, 0f)
+        bounceAnim.duration = 1200
+        bounceAnim.repeatCount = android.animation.ValueAnimator.INFINITE
+        bounceAnim.interpolator = android.view.animation.AccelerateDecelerateInterpolator()
+        bounceAnim.startDelay = 1000
+        bounceAnim.start()
     }
 
-    private fun setupAnimations() {
-        // 1. Camera scan button — pulsing glow ring
-        val pulseAnimator = android.animation.ObjectAnimator.ofPropertyValuesHolder(
-            binding.heroButtonContainer,
-            android.animation.PropertyValuesHolder.ofFloat("scaleX", 1f, 1.08f, 1f),
-            android.animation.PropertyValuesHolder.ofFloat("scaleY", 1f, 1.08f, 1f)
-        )
-        pulseAnimator.duration = 1500
-        pulseAnimator.repeatCount = android.animation.ValueAnimator.INFINITE
-        pulseAnimator.start()
+    private fun startPulseAnimation() {
+        val ring1 = binding.pulseRing1
+        val ring2 = binding.pulseRing2
+        val ring3 = binding.pulseRing3
+        
+        fun pulseView(view: View, fromScale: Float, toScale: Float, durationLong: Long, delayLong: Long) {
+            val scaleX = android.animation.ObjectAnimator.ofFloat(view, "scaleX", fromScale, toScale, fromScale)
+            val scaleY = android.animation.ObjectAnimator.ofFloat(view, "scaleY", fromScale, toScale, fromScale)
+            val alpha = android.animation.ObjectAnimator.ofFloat(view, "alpha", 0.8f, 0.2f, 0.8f)
+            android.animation.AnimatorSet().apply {
+                playTogether(scaleX, scaleY, alpha)
+                duration = durationLong
+                startDelay = delayLong
+                interpolator = android.view.animation.AccelerateDecelerateInterpolator()
+                val pulseAnimator = this.childAnimations[0] as? android.animation.ValueAnimator
+                // ValueAnimator repeat property does not work cleanly on AnimatorSet, so apply to children
+                scaleX.repeatCount = android.animation.ValueAnimator.INFINITE
+                scaleY.repeatCount = android.animation.ValueAnimator.INFINITE
+                alpha.repeatCount = android.animation.ValueAnimator.INFINITE
+                start()
+            }
+        }
+        
+        pulseView(ring1, 0.85f, 1.0f, 1500L, 0L)
+        pulseView(ring2, 0.85f, 1.0f, 1500L, 300L)
+        pulseView(ring3, 0.85f, 1.0f, 1500L, 600L)
 
-        // 2. Staggered fade and slide up for cards
+        // Staggered fade and slide up for cards
         animateViewIn(binding.weatherRiskCard, 100)
         animateViewIn(binding.cardUpload, 200)
         animateViewIn(binding.cardHistory, 250)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        binding.pulseRing1.clearAnimation()
+        binding.pulseRing2.clearAnimation()
+        binding.pulseRing3.clearAnimation()
+        binding.tapToScanText.clearAnimation()
     }
 
     private fun animateViewIn(view: View, delay: Long) {

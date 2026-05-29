@@ -50,6 +50,8 @@ interface ClaudeApiService {
 data class OpenAiRequest(
     val model: String,
     val messages: List<OpenAiMessage>,
+    val max_tokens: Int? = null,
+    val temperature: Float? = null,
     val response_format: OpenAiResponseFormat? = null
 )
 
@@ -72,7 +74,7 @@ data class OpenAiChoice(
 
 interface OpenAiApiService {
     @Headers("Content-Type: application/json")
-    @POST("v1/chat/completions")
+    @POST("chat/completions")
     suspend fun getChatCompletion(
         @Header("Authorization") authHeader: String,
         @Body request: OpenAiRequest
@@ -133,12 +135,11 @@ data class AgmarknetRecord(
 
 interface AgmarknetApiService {
     @GET("resource/9ef84268-d588-465a-a308-a864a43d0070")
-    suspend fun getMarketPrices(
+    suspend fun getPrices(
         @Query("api-key") apiKey: String,
         @Query("format") format: String = "json",
         @Query("filters[commodity]") commodity: String,
-        @Query("filters[state]") state: String? = null,
-        @Query("limit") limit: Int = 30,
+        @Query("limit") limit: Int = 50,
         @Query("offset") offset: Int = 0
     ): Response<AgmarknetResponse>
 }
