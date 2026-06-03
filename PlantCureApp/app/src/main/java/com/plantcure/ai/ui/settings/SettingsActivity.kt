@@ -59,6 +59,10 @@ class SettingsActivity : AppCompatActivity() {
 
     private fun setupToolbar() {
         binding.toolbar.setNavigationOnClickListener { finish() }
+        
+        binding.btnEditProfile.setOnClickListener {
+            startActivity(android.content.Intent(this, com.plantcure.ai.ui.profile.ProfileActivity::class.java))
+        }
     }
 
     // ── Language ─────────────────────────────────────────────────────────

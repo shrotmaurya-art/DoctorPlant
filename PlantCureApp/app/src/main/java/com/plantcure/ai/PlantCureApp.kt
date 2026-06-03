@@ -7,6 +7,7 @@ import android.os.Build
 import androidx.hilt.work.HiltWorkerFactory
 import androidx.work.Configuration
 import com.google.firebase.auth.FirebaseAuth
+import com.plantcure.ai.data.local.ApiKeyManager
 import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
 
@@ -33,6 +34,9 @@ class PlantCureApp : Application(), Configuration.Provider {
 
     override fun onCreate() {
         super.onCreate()
+
+        // Initialize encrypted API key storage (must be first)
+        ApiKeyManager.init(applicationContext)
 
         createNotificationChannels()
         signInAnonymously()

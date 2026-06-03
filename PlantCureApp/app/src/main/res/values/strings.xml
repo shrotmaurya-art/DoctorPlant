@@ -124,4 +124,57 @@
     <string name="loading">Loading…</string>
     <string name="permission_camera">Camera permission is needed to scan plants</string>
     <string name="permission_location">Location helps tag your scans and find nearby shops</string>
+
+    <!-- Home Screen (localization fix — moved from hardcoded XML) -->
+    <string name="home_app_title">PlantCure AI</string>
+    <string name="home_scan_subtitle">Point camera at a plant leaf</string>
+    <string name="home_upload_subtitle">From gallery</string>
+    <string name="home_history_subtitle">Past scans</string>
+    <string name="home_chat_ai">Chat AI</string>
+
+    <!-- Profile Screen -->
+    <string name="profile_title">My Profile</string>
+    <string name="profile_user_name">PlantCure AI User</string>
+    <string name="profile_account_type">Farmer Account</string>
+    <string name="profile_plan">Free Plan</string>
+    <string name="profile_api_keys_title">API Keys &amp; Services</string>
+    <string name="profile_groq_key_label">Groq API Key</string>
+    <string name="profile_groq_key_desc">Used for AgriBot AI chatbot</string>
+    <string name="profile_groq_key_missing">⚠ No key added — ChatBot disabled</string>
+    <string name="profile_openai_key_label">OpenAI API Key</string>
+    <string name="profile_openai_key_desc">Used for market price features</string>
+    <string name="profile_openai_key_missing">⚠ No key added — Market features limited</string>
+    <string name="profile_save_groq_key">Save Groq Key</string>
+    <string name="profile_save_openai_key">Save OpenAI Key</string>
+    <string name="profile_change">Change</string>
+    <string name="profile_remove">Remove</string>
+    <string name="profile_help_title">How to get API Keys?</string>
+    <string name="profile_help_groq_title">Groq API Key (Free)</string>
+    <string name="profile_help_groq_steps">1. Go to console.groq.com\n2. Sign in or create account\n3. Click \'API Keys\' in left menu\n4. Click \'Create API Key\'\n5. Copy the key starting with \'gsk_\'\n6. Paste it above and tap Save</string>
+    <string name="profile_help_open_groq">Open Groq Console</string>
+    <string name="profile_help_openai_title">OpenAI API Key</string>
+    <string name="profile_help_openai_steps">1. Go to platform.openai.com\n2. Sign in or create account\n3. Click \'API Keys\' in left menu\n4. Click \'Create new secret key\'\n5. Copy the key starting with \'sk-\'\n6. Paste it above and tap Save</string>
+    <string name="profile_help_open_openai">Open OpenAI Website</string>
+    <string name="profile_app_info">Made with 🌿 for Indian Farmers</string>
+    <string name="profile_remove_confirm_title">Remove API Key?</string>
+    <string name="profile_remove_confirm_message">This will disable the associated feature until you add a new key.</string>
+    <string name="profile_key_saved">✅ Key saved successfully!</string>
+    <string name="profile_key_removed">Key removed</string>
+    <string name="profile_groq_format_error">Groq keys must start with \'gsk_\'</string>
+    <string name="profile_openai_format_error">OpenAI keys must start with \'sk-\'</string>
+    <string name="profile_key_too_short">This key looks too short</string>
+
+    <!-- No API Key View -->
+    <string name="no_api_key_title">API Key Required</string>
+    <string name="no_api_key_message_chat">AgriBot needs a Groq API key to work.\nAdd your key in Profile to enable AI chat.</string>
+    <string name="no_api_key_message_market">Market features need a Groq API key.\nAdd your key in Profile to see AI insights.</string>
+    <string name="no_api_key_add_button">Add API Key Now</string>
+    <string name="no_api_key_help">How to get a free key?</string>
+
+    <!-- First Launch Onboarding -->
+    <string name="onboarding_title">Welcome to PlantCure AI! 🌿</string>
+    <string name="onboarding_message">To use all features, you\'ll need to add your API keys in Profile settings.\n\n• Groq key → AI Chat Assistant\n• OpenAI key → Market Features\n\nBoth are free to get and take 2 minutes.</string>
+    <string name="onboarding_add_keys">Add API Keys Now</string>
+    <string name="onboarding_skip">Skip for now</string>
 </resources>
+

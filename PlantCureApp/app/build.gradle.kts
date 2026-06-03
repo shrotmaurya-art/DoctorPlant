@@ -31,11 +31,8 @@ android {
 
         // Inject API keys into BuildConfig (dev only — use backend proxy in prod)
         val mapsApiKey = localProperties["GOOGLE_MAPS_API_KEY"]?.toString() ?: ""
-        buildConfigField("String", "CLAUDE_API_KEY", "\"${localProperties["CLAUDE_API_KEY"] ?: ""}\"")
         buildConfigField("String", "OPENWEATHER_API_KEY", "\"${localProperties["OPENWEATHER_API_KEY"] ?: ""}\"")
         buildConfigField("String", "GOOGLE_MAPS_API_KEY", "\"$mapsApiKey\"")
-        buildConfigField("String", "AGMARKNET_API_KEY", "\"${localProperties["AGMARKNET_API_KEY"] ?: ""}\"")
-        buildConfigField("String", "OPENAI_API_KEY", "\"${localProperties["OPENAI_API_KEY"] ?: ""}\"")
 
         manifestPlaceholders["GOOGLE_MAPS_API_KEY"] = mapsApiKey
     }
@@ -85,6 +82,9 @@ dependencies {
     implementation("androidx.fragment:fragment-ktx:1.8.5")
     implementation("androidx.constraintlayout:constraintlayout:2.2.0")
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
+
+    // ── Security (EncryptedSharedPreferences for API Key storage) ──
+    implementation("androidx.security:security-crypto:1.1.0-alpha06")
 
     // ── Material Design 3 ──
     implementation("com.google.android.material:material:1.12.0")

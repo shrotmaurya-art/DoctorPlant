@@ -57,24 +57,14 @@ object NetworkModule {
     @Singleton
     fun provideOpenAiApiService(client: OkHttpClient): OpenAiApiService {
         return Retrofit.Builder()
-            .baseUrl("https://api.openai.com/")
+            .baseUrl("https://api.openai.com/v1/")
             .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(OpenAiApiService::class.java)
     }
 
-    @Provides
-    @Singleton
-    @Named("groq")
-    fun provideGroqApiService(client: OkHttpClient): OpenAiApiService {
-        return Retrofit.Builder()
-            .baseUrl("https://api.groq.com/openai/v1/")
-            .client(client)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-            .create(OpenAiApiService::class.java)
-    }
+
 
     @Provides
     @Singleton

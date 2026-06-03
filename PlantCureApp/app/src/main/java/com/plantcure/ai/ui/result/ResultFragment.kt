@@ -46,6 +46,7 @@ class ResultFragment : Fragment() {
         setupUI()
         setupTTS()
         setupShare()
+        setupChat()
         observeData()
 
         // Load data and auto-save if new scan
@@ -81,6 +82,16 @@ class ResultFragment : Fragment() {
             .scaleY(1f)
             .setDuration(400)
             .setStartDelay(300)
+            .setInterpolator(android.view.animation.OvershootInterpolator())
+            .start()
+
+        binding.fabChat.scaleX = 0f
+        binding.fabChat.scaleY = 0f
+        binding.fabChat.animate()
+            .scaleX(1f)
+            .scaleY(1f)
+            .setDuration(400)
+            .setStartDelay(400)
             .setInterpolator(android.view.animation.OvershootInterpolator())
             .start()
     }
@@ -162,6 +173,25 @@ class ResultFragment : Fragment() {
                 }
                 startActivity(Intent.createChooser(shareIntent, getString(R.string.share_result)))
             }
+        }
+    }
+
+    private fun setupChat() {
+        binding.fabChat.setOnClickListener {
+            val diseaseName = viewModel.disease.value?.name ?: args.diseaseLabel
+            val cropName = viewModel.disease.value?.affectedCrop ?: "General"
+            val severityLevel = viewModel.detectionResult.value?.severity ?: "Unknown"
+
+            val intent = Intent(requireContext(), com.plantcure.ai.ui.chat.ChatActivity::class.java)
+            intent.putExtra("disease_name", diseaseName)
+            intent.putExtra("crop_name", cropName)
+            intent.putExtra("severity", severityLevel)
+            
+            // Add confidence if available just in case it's useful later
+            val confidenceScore = viewModel.detectionResult.value?.confidence ?: 0f
+            intent.putExtra("confidence", confidenceScore)
+
+            startActivity(intent)
         }
     }
 

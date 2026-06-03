@@ -44,19 +44,14 @@ interface ClaudeApiService {
 }
 
 // ══════════════════════════════════════════════════════
-// OpenAI & Groq compatible API
+// OpenAI API (Used by Market)
 // ══════════════════════════════════════════════════════
 
 data class OpenAiRequest(
     val model: String,
     val messages: List<OpenAiMessage>,
-    val max_tokens: Int? = null,
-    val temperature: Float? = null,
-    val response_format: OpenAiResponseFormat? = null
-)
-
-data class OpenAiResponseFormat(
-    val type: String
+    val max_tokens: Int = 800,
+    val temperature: Float = 0.3f
 )
 
 data class OpenAiMessage(
@@ -65,11 +60,16 @@ data class OpenAiMessage(
 )
 
 data class OpenAiResponse(
-    val choices: List<OpenAiChoice>
+    val choices: List<OpenAiChoice>?
 )
 
 data class OpenAiChoice(
-    val message: OpenAiMessage
+    val message: OpenAiChoiceMessage?
+)
+
+data class OpenAiChoiceMessage(
+    val role: String?,
+    val content: String?
 )
 
 interface OpenAiApiService {
@@ -79,6 +79,56 @@ interface OpenAiApiService {
         @Header("Authorization") authHeader: String,
         @Body request: OpenAiRequest
     ): Response<OpenAiResponse>
+}
+
+// ══════════════════════════════════════════════════════
+// Groq API (Used by Chat)
+// ══════════════════════════════════════════════════════
+
+data class GroqChatRequest(
+    val model: String,
+    val messages: List<GroqMessage>,
+    val max_tokens: Int
+)
+
+data class GroqMessage(
+    val role: String,
+    val content: String
+)
+
+data class GroqResponse(
+    val id: String?,
+    val `object`: String?,
+    val created: Long?,
+    val model: String?,
+    val choices: List<GroqChoice>?,
+    val usage: GroqUsage?
+)
+
+data class GroqChoice(
+    val index: Int?,
+    val message: GroqMessage?,
+    @com.google.gson.annotations.SerializedName("finish_reason")
+    val finishReason: String?
+)
+
+
+
+data class GroqUsage(
+    @com.google.gson.annotations.SerializedName("prompt_tokens")
+    val promptTokens: Int?,
+    @com.google.gson.annotations.SerializedName("completion_tokens")
+    val completionTokens: Int?,
+    @com.google.gson.annotations.SerializedName("total_tokens")
+    val totalTokens: Int?
+)
+
+interface GroqApiService {
+    @POST("chat/completions")
+    suspend fun sendMessage(
+        @Header("Authorization") auth: String,
+        @Body request: GroqChatRequest
+    ): Response<GroqResponse>
 }
 
 
@@ -114,23 +164,26 @@ interface WeatherApiService {
 // ══════════════════════════════════════════════════════
 
 data class AgmarknetResponse(
-    val records: List<AgmarknetRecord>
+    val records: List<AgmarknetRecord>?,
+    val total: Int?,
+    val count: Int?,
+    val limit: Int?,
+    val offset: Int?
 )
 
 data class AgmarknetRecord(
-    val state: String,
-    val district: String,
-    val market: String,
-    val commodity: String,
-    val min_price: String,
-    val max_price: String,
-    val modal_price: String,
-    val arrival_date: String? = null
+    @com.google.gson.annotations.SerializedName("State") val state: String?,
+    @com.google.gson.annotations.SerializedName("District") val district: String?,
+    @com.google.gson.annotations.SerializedName("Market") val market: String?,
+    @com.google.gson.annotations.SerializedName("Commodity") val commodity: String?,
+    @com.google.gson.annotations.SerializedName("Min Price") val minPrice: String?,
+    @com.google.gson.annotations.SerializedName("Max Price") val maxPrice: String?,
+    @com.google.gson.annotations.SerializedName("Modal Price") val modalPrice: String?,
+    @com.google.gson.annotations.SerializedName("Price Date") val priceDate: String?
 ) {
-    /** Parse price string, handling commas (e.g., "1,500" → 1500f) */
-    fun parseMinPrice(): Float = min_price.replace(",", "").toFloatOrNull() ?: 0f
-    fun parseMaxPrice(): Float = max_price.replace(",", "").toFloatOrNull() ?: 0f
-    fun parseModalPrice(): Float = modal_price.replace(",", "").toFloatOrNull() ?: 0f
+    fun parseMinPrice(): Int = minPrice?.replace(",", "")?.trim()?.toFloatOrNull()?.toInt() ?: 0
+    fun parseMaxPrice(): Int = maxPrice?.replace(",", "")?.trim()?.toFloatOrNull()?.toInt() ?: 0
+    fun parseModalPrice(): Int = modalPrice?.replace(",", "")?.trim()?.toFloatOrNull()?.toInt() ?: 0
 }
 
 interface AgmarknetApiService {

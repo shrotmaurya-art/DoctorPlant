@@ -106,8 +106,19 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_marginBottom="72dp" />
 
+    <!-- No API Key Overlay -->
+    <include
+        android:id="@+id/noApiKeyView"
+        layout="@layout/view_no_api_key"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="72dp"
+        android:visibility="gone" />
+
     <!-- Bottom Input Area -->
     <LinearLayout
+        android:id="@+id/inputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"

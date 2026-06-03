@@ -1,5 +1,6 @@
 package com.plantcure.ai.ui.market
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -17,6 +18,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.plantcure.ai.data.local.entity.MarketPrice
 import com.plantcure.ai.databinding.FragmentMarketBinding
 import com.plantcure.ai.databinding.ItemMarketPriceBinding
+import com.plantcure.ai.databinding.ViewNoApiKeyBinding
+import com.plantcure.ai.ui.profile.ProfileActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import com.plantcure.ai.R
@@ -48,10 +51,17 @@ class MarketFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        android.util.Log.d("MKT", "Fragment onViewCreated fired")
+
         setupRecyclerView()
         setupChips()
         setupLocationDropdowns()
+        setupNoApiKeyView()
         observeData()
+
+        // Force load on open
+        android.util.Log.d("MKT", "Calling loadPrices from fragment")
+        viewModel.loadPrices("Tomato", "Maharashtra")
 
         binding.btnAutoLocate.setOnClickListener {
             if (androidx.core.content.ContextCompat.checkSelfPermission(
@@ -62,6 +72,26 @@ class MarketFragment : Fragment() {
             } else {
                 locationPermissionRequest.launch(android.Manifest.permission.ACCESS_FINE_LOCATION)
             }
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.checkApiKey()
+    }
+
+    private fun setupNoApiKeyView() {
+        val noApiBinding = ViewNoApiKeyBinding.bind(binding.root.findViewById(com.plantcure.ai.R.id.noApiKeyView))
+        
+        // Update texts for market
+        noApiBinding.tvNoKeyMessage.text = getString(R.string.no_api_key_message_market)
+        
+        noApiBinding.btnAddApiKey.setOnClickListener {
+            startActivity(Intent(requireContext(), ProfileActivity::class.java))
+        }
+        
+        noApiBinding.btnHowToGetKey.setOnClickListener {
+            startActivity(Intent(requireContext(), ProfileActivity::class.java))
         }
     }
 
@@ -210,15 +240,63 @@ class MarketFragment : Fragment() {
     private fun observeData() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+
+                // ── Observe MarketState (Loading/Success/Error/NoKey) ──
+                launch {
+                    viewModel.state.collect { mktState ->
+                        android.util.Log.d("MKT", "State changed: $mktState")
+                        when (mktState) {
+                            is MarketState.Loading -> {
+                                android.util.Log.d("MKT", "Showing loading")
+                                if (adapter.itemCount == 0) {
+                                    binding.shimmerLayout.visibility = View.VISIBLE
+                                    binding.shimmerLayout.startShimmer()
+                                    binding.emptyStateLayout.visibility = View.GONE
+                                }
+                            }
+                            is MarketState.Success -> {
+                                android.util.Log.d("MKT", "Success: ${mktState.records.size} records")
+                                binding.shimmerLayout.stopShimmer()
+                                binding.shimmerLayout.visibility = View.GONE
+                                if (mktState.records.isEmpty()) {
+                                    binding.emptyStateLayout.visibility = View.VISIBLE
+                                    binding.rvMarketPrices.visibility = View.GONE
+                                } else {
+                                    binding.emptyStateLayout.visibility = View.GONE
+                                    binding.rvMarketPrices.visibility = View.VISIBLE
+                                }
+                            }
+                            is MarketState.Error -> {
+                                android.util.Log.d("MKT", "Error: ${mktState.message}")
+                                binding.shimmerLayout.stopShimmer()
+                                binding.shimmerLayout.visibility = View.GONE
+                                binding.emptyStateLayout.visibility = View.VISIBLE
+                                android.widget.Toast.makeText(
+                                    requireContext(),
+                                    mktState.message,
+                                    android.widget.Toast.LENGTH_LONG
+                                ).show()
+                            }
+                            is MarketState.NoKey -> {
+                                android.util.Log.d("MKT", "No API key")
+                                binding.shimmerLayout.stopShimmer()
+                                binding.shimmerLayout.visibility = View.GONE
+                            }
+                        }
+                    }
+                }
+
+                // ── Observe prices (filtered/sorted list for RecyclerView) ──
                 launch {
                     viewModel.prices.collect { prices ->
+                        android.util.Log.d("MKT", "Prices list updated: ${prices.size}")
                         adapter.submitList(prices)
                         
                         // Handle Empty State
                         if (prices.isEmpty() && !viewModel.isRefreshing.value) {
                             binding.emptyStateLayout.visibility = View.VISIBLE
                             binding.rvMarketPrices.visibility = View.GONE
-                        } else {
+                        } else if (prices.isNotEmpty()) {
                             binding.emptyStateLayout.visibility = View.GONE
                             binding.rvMarketPrices.visibility = View.VISIBLE
                             // Trigger layout animation for sorting/updating
@@ -230,33 +308,22 @@ class MarketFragment : Fragment() {
                 launch {
                     viewModel.isRefreshing.collect { isRefreshing ->
                         binding.swipeRefresh.isRefreshing = isRefreshing
-                        if (isRefreshing && adapter.itemCount == 0) {
-                            binding.shimmerLayout.visibility = View.VISIBLE
-                            binding.shimmerLayout.startShimmer()
-                            binding.emptyStateLayout.visibility = View.GONE
-                        } else {
-                            binding.shimmerLayout.stopShimmer()
-                            binding.shimmerLayout.visibility = View.GONE
-                        }
                     }
                 }
 
                 launch {
-                    viewModel.refreshStatusCode.collect { code ->
-                        if (code != null && code != 200 && adapter.itemCount == 0) {
-                            val cropName = viewModel.selectedCommodity.value
-                            val msg = when (code) {
-                                401 -> "Market data service authentication failed.\nPlease check your internet connection and try again."
-                                403 -> "Market data access denied.\nThe API key may need renewal."
-                                404 -> "No price data found for $cropName.\nTry selecting a different crop."
-                                429 -> "Too many requests. Please wait 1 minute and try again."
-                                else -> "Could not load prices (Error $code).\nShowing cached data if available."
+                    viewModel.uiState.collect { state ->
+                        when (state) {
+                            MarketUiState.Idle -> {
+                                binding.root.findViewById<View>(com.plantcure.ai.R.id.noApiKeyView).visibility = View.GONE
+                                binding.btnAutoLocate.isEnabled = true
                             }
-                            android.widget.Toast.makeText(
-                                requireContext(),
-                                msg,
-                                android.widget.Toast.LENGTH_LONG
-                            ).show()
+                            MarketUiState.NoApiKey -> {
+                                binding.root.findViewById<View>(com.plantcure.ai.R.id.noApiKeyView).visibility = View.VISIBLE
+                                binding.rvMarketPrices.visibility = View.GONE
+                                binding.emptyStateLayout.visibility = View.GONE
+                                binding.btnAutoLocate.isEnabled = false
+                            }
                         }
                     }
                 }

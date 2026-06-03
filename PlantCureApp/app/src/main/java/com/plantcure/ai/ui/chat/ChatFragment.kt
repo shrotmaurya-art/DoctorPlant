@@ -1,5 +1,6 @@
 package com.plantcure.ai.ui.chat
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +15,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.plantcure.ai.databinding.FragmentChatBinding
 import com.plantcure.ai.databinding.ItemChatAiBinding
 import com.plantcure.ai.databinding.ItemChatUserBinding
+import com.plantcure.ai.databinding.ViewNoApiKeyBinding
 import com.plantcure.ai.domain.model.ChatMessage
+import com.plantcure.ai.ui.profile.ProfileActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -40,9 +43,37 @@ class ChatFragment : Fragment() {
             requireActivity().onBackPressedDispatcher.onBackPressed()
         }
 
+        val intent = requireActivity().intent
+        val diseaseName = intent.getStringExtra("disease_name") ?: "Unknown Disease"
+        val cropName = intent.getStringExtra("crop_name") ?: "Unknown Crop"
+        val severity = intent.getStringExtra("severity") ?: "Unknown"
+        
+        viewModel.initChatContext(diseaseName, cropName, severity)
+
         setupRecyclerView()
         setupSendButton()
+        setupNoApiKeyView()
         observeMessages()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.checkApiKey()
+        // Show which AI is active in toolbar subtitle
+        val subtitle = "AgriBot (${viewModel.getProviderLabel()})"
+        binding.toolbar.subtitle = subtitle
+    }
+
+    private fun setupNoApiKeyView() {
+        val noApiBinding = ViewNoApiKeyBinding.bind(binding.root.findViewById(com.plantcure.ai.R.id.noApiKeyView))
+        
+        noApiBinding.btnAddApiKey.setOnClickListener {
+            startActivity(Intent(requireContext(), ProfileActivity::class.java))
+        }
+        
+        noApiBinding.btnHowToGetKey.setOnClickListener {
+            startActivity(Intent(requireContext(), ProfileActivity::class.java))
+        }
     }
 
     private fun setupRecyclerView() {
@@ -101,6 +132,21 @@ class ChatFragment : Fragment() {
                 launch {
                     viewModel.isLoading.collect { loading ->
                         binding.btnSend.isEnabled = !loading
+                    }
+                }
+
+                launch {
+                    viewModel.uiState.collect { state ->
+                        when (state) {
+                            ChatUiState.Idle -> {
+                                binding.root.findViewById<View>(com.plantcure.ai.R.id.noApiKeyView).visibility = View.GONE
+                                binding.inputLayout.visibility = View.VISIBLE
+                            }
+                            ChatUiState.NoApiKey -> {
+                                binding.root.findViewById<View>(com.plantcure.ai.R.id.noApiKeyView).visibility = View.VISIBLE
+                                binding.inputLayout.visibility = View.GONE
+                            }
+                        }
                     }
                 }
             }

@@ -124,4 +124,56 @@
     <string name="loading">लोड हो रहा है…</string>
     <string name="permission_camera">पौधों को स्कैन करने के लिए कैमरा अनुमति आवश्यक है</string>
     <string name="permission_location">स्थान आपके स्कैन को टैग करने और पास की दुकानें खोजने में मदद करता है</string>
+
+    <!-- Home Screen (localization fix — moved from hardcoded XML) -->
+    <string name="home_app_title">PlantCure AI</string>
+    <string name="home_scan_subtitle">पौधे के पत्ते पर कैमरा लगाएँ</string>
+    <string name="home_upload_subtitle">गैलरी से</string>
+    <string name="home_history_subtitle">पिछले स्कैन</string>
+    <string name="home_chat_ai">चैट एआई</string>
+
+    <!-- Profile Screen -->
+    <string name="profile_title">मेरी प्रोफाइल</string>
+    <string name="profile_user_name">PlantCure AI उपयोगकर्ता</string>
+    <string name="profile_account_type">किसान खाता</string>
+    <string name="profile_plan">मुफ्त योजना</string>
+    <string name="profile_api_keys_title">एपीआई कुंजी और सेवाएँ</string>
+    <string name="profile_groq_key_label">Groq API कुंजी</string>
+    <string name="profile_groq_key_desc">AgriBot AI चैटबॉट के लिए उपयोग किया जाता है</string>
+    <string name="profile_groq_key_missing">⚠ कोई कुंजी नहीं जोड़ी गई — चैटबॉट अक्षम</string>
+    <string name="profile_openai_key_label">OpenAI API कुंजी</string>
+    <string name="profile_openai_key_desc">बाजार भाव सुविधाओं के लिए उपयोग किया जाता है</string>
+    <string name="profile_openai_key_missing">⚠ कोई कुंजी नहीं जोड़ी गई — बाजार सुविधाएँ सीमित</string>
+    <string name="profile_save_groq_key">Groq कुंजी सहेजें</string>
+    <string name="profile_save_openai_key">OpenAI कुंजी सहेजें</string>
+    <string name="profile_change">बदलें</string>
+    <string name="profile_remove">हटाएं</string>
+    <string name="profile_help_title">एपीआई कुंजी कैसे प्राप्त करें?</string>
+    <string name="profile_help_groq_title">Groq API कुंजी (मुफ्त)</string>
+    <string name="profile_help_groq_steps">1. console.groq.com पर जाएं\n2. साइन इन करें या खाता बनाएं\n3. बाएं मेनू में \'API Keys\' पर क्लिक करें\n4. \'Create API Key\' पर क्लिक करें\n5. \'gsk_\' से शुरू होने वाली कुंजी कॉपी करें\n6. इसे ऊपर पेस्ट करें और सहेजें पर टैप करें</string>
+    <string name="profile_help_open_groq">Groq कंसोल खोलें</string>
+    <string name="profile_help_openai_title">OpenAI API कुंजी</string>
+    <string name="profile_help_openai_steps">1. platform.openai.com पर जाएं\n2. साइन इन करें या खाता बनाएं\n3. बाएं मेनू में \'API Keys\' पर क्लिक करें\n4. \'Create new secret key\' पर क्लिक करें\n5. \'sk-\' से शुरू होने वाली कुंजी कॉपी करें\n6. इसे ऊपर पेस्ट करें और सहेजें पर टैप करें</string>
+    <string name="profile_help_open_openai">OpenAI वेबसाइट खोलें</string>
+    <string name="profile_app_info">भारतीय किसानों के लिए 🌿 से बनाया गया</string>
+    <string name="profile_remove_confirm_title">एपीआई कुंजी हटाएं?</string>
+    <string name="profile_remove_confirm_message">यह संबंधित सुविधा को तब तक अक्षम कर देगा जब तक आप एक नई कुंजी नहीं जोड़ते।</string>
+    <string name="profile_key_saved">✅ कुंजी सफलतापूर्वक सहेजी गई!</string>
+    <string name="profile_key_removed">कुंजी हटा दी गई</string>
+    <string name="profile_groq_format_error">Groq कुंजियाँ \'gsk_\' से शुरू होनी चाहिए</string>
+    <string name="profile_openai_format_error">OpenAI कुंजियाँ \'sk-\' से शुरू होनी चाहिए</string>
+    <string name="profile_key_too_short">यह कुंजी बहुत छोटी लग रही है</string>
+
+    <!-- No API Key View -->
+    <string name="no_api_key_title">एपीआई कुंजी आवश्यक</string>
+    <string name="no_api_key_message_chat">AgriBot को काम करने के लिए Groq API कुंजी की आवश्यकता है।\nAI चैट सक्षम करने के लिए अपनी कुंजी प्रोफ़ाइल में जोड़ें।</string>
+    <string name="no_api_key_message_market">बाजार सुविधाओं के लिए Groq API कुंजी की आवश्यकता है।\nAI अंतर्दृष्टि देखने के लिए अपनी कुंजी प्रोफ़ाइल में जोड़ें।</string>
+    <string name="no_api_key_add_button">अभी एपीआई कुंजी जोड़ें</string>
+    <string name="no_api_key_help">मुफ्त कुंजी कैसे प्राप्त करें?</string>
+
+    <!-- First Launch Onboarding -->
+    <string name="onboarding_title">PlantCure AI में आपका स्वागत है! 🌿</string>
+    <string name="onboarding_message">सभी सुविधाओं का उपयोग करने के लिए, आपको प्रोफ़ाइल सेटिंग्स में अपनी एपीआई कुंजियाँ जोड़नी होंगी।\n\n• Groq कुंजी → AI चैट सहायक\n• OpenAI कुंजी → बाजार सुविधाएँ\n\nदोनों प्राप्त करने के लिए स्वतंत्र हैं और 2 मिनट लगते हैं।</string>
+    <string name="onboarding_add_keys">अभी एपीआई कुंजियाँ जोड़ें</string>
+    <string name="onboarding_skip">अभी के लिए छोड़ें</string>
 </resources>

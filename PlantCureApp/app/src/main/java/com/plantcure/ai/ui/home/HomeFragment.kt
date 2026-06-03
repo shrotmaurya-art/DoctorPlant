@@ -31,6 +31,8 @@ import kotlinx.coroutines.withContext
 import java.io.File
 import java.io.FileOutputStream
 import java.util.UUID
+import com.plantcure.ai.data.local.ApiKeyManager
+import com.plantcure.ai.ui.profile.ProfileActivity
 
 /**
  * Dashboard Home Screen with weather, history, and actions.
@@ -157,6 +159,30 @@ class HomeFragment : Fragment() {
         bounceAnim.interpolator = android.view.animation.AccelerateDecelerateInterpolator()
         bounceAnim.startDelay = 1000
         bounceAnim.start()
+
+        checkApiKeysOnboarding()
+    }
+
+    private fun checkApiKeysOnboarding() {
+        val prefs = requireContext().getSharedPreferences("plantcure_prefs", android.content.Context.MODE_PRIVATE)
+        val hasShown = prefs.getBoolean("has_shown_api_onboarding", false)
+        
+        if (!hasShown) {
+            if (!ApiKeyManager.hasGroqKey() || !ApiKeyManager.hasOpenAiKey()) {
+                com.google.android.material.dialog.MaterialAlertDialogBuilder(requireContext())
+                    .setTitle(R.string.onboarding_title)
+                    .setMessage(R.string.onboarding_message)
+                    .setCancelable(false)
+                    .setPositiveButton(R.string.onboarding_add_keys) { _, _ ->
+                        prefs.edit().putBoolean("has_shown_api_onboarding", true).apply()
+                        startActivity(Intent(requireContext(), ProfileActivity::class.java))
+                    }
+                    .setNegativeButton(R.string.onboarding_skip) { _, _ ->
+                        prefs.edit().putBoolean("has_shown_api_onboarding", true).apply()
+                    }
+                    .show()
+            }
+        }
     }
 
     private fun startPulseAnimation() {

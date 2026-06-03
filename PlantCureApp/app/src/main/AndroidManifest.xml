@@ -68,6 +68,11 @@
             android:name=".ui.settings.SettingsActivity"
             android:exported="false" />
 
+        <!-- Profile Activity -->
+        <activity
+            android:name=".ui.profile.ProfileActivity"
+            android:exported="false" />
+
         <!-- Firebase Messaging Service -->
         <service
             android:name=".util.PlantCureFirebaseMessagingService"

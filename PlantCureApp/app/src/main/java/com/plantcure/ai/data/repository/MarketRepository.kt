@@ -1,56 +1,200 @@
 package com.plantcure.ai.data.repository
 
-import com.plantcure.ai.BuildConfig
-import com.plantcure.ai.data.local.dao.MarketPriceDao
-import com.plantcure.ai.data.local.entity.MarketPrice
-import com.plantcure.ai.data.remote.OpenAiApiService
-import com.plantcure.ai.data.remote.OpenAiRequest
-import com.plantcure.ai.data.remote.OpenAiMessage
 import android.content.Context
+import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.flow.Flow
+import com.plantcure.ai.data.local.ApiKeyManager
+import com.plantcure.ai.data.local.entity.MarketPrice
+import com.plantcure.ai.data.remote.OpenAiClient
+import com.plantcure.ai.data.remote.OpenAiMessage
+import com.plantcure.ai.data.remote.OpenAiRequest
+import java.text.SimpleDateFormat
+import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
+import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.withTimeout
+import kotlinx.coroutines.TimeoutCancellationException
 
-/**
- * Repository for Mandi market prices.
- * Uses ChatGPT API to generate realistic location-aware prices,
- * caches to Room for offline access.
- */
 @Singleton
 class MarketRepository @Inject constructor(
-    @ApplicationContext private val context: Context,
-    private val agmarknetApi: com.plantcure.ai.data.remote.AgmarknetApiService,
-    private val marketPriceDao: MarketPriceDao
+    @ApplicationContext private val context: Context
 ) {
-    private val CACHE_DURATION_MS = 6 * 60 * 60 * 1000L // 6 hours
 
-    /**
-     * Get cached prices filtered by commodity only.
-     */
-    fun getPricesForCommodity(commodity: String): Flow<List<MarketPrice>> {
-        return marketPriceDao.getPricesForCommodity(commodity)
+    // In-memory cache: crop → (timestamp, prices)
+    private val cache = mutableMapOf<String, Pair<Long, List<MarketPrice>>>()
+
+    suspend fun getPrices(
+        commodity: String,
+        state: String = "Maharashtra"
+    ): Result<List<MarketPrice>> {
+
+        Log.d("MKT", "getPrices called: $commodity")
+
+        // 1. Return cache if fresh (< 1 hour)
+        cache[commodity]?.let { (time, prices) ->
+            val age = System.currentTimeMillis() - time
+            if (age < 3_600_000L && prices.isNotEmpty()) {
+                Log.d("MKT", "Cache hit: ${prices.size}")
+                return Result.success(prices)
+            }
+        }
+
+        // 2. Get API key
+        val groqKey = ApiKeyManager.getGroqKey()
+        if (groqKey.isNullOrBlank()) {
+            Log.e("MKT", "No Groq key found")
+            return Result.failure(
+                Exception("no_key")
+            )
+        }
+        Log.d("MKT", "Key length: ${groqKey.length}")
+
+        // 3. Build simple prompt
+        val prompt = "Give me 5 realistic Indian " +
+            "wholesale mandi prices for $commodity " +
+            "in $state today. Return ONLY a JSON " +
+            "array starting with [ and ending with ] " +
+            "No markdown. No explanation. " +
+            "Each object must have exactly these " +
+            "fields: market, district, state, " +
+            "minPrice, maxPrice, modalPrice, trend. " +
+            "trend must be up, down, or stable. " +
+            "Prices in rupees per quintal."
+
+        Log.d("MKT", "Calling Groq...")
+
+        return try {
+            withTimeout(25_000L) {
+                // 4. Call Groq
+                Log.d("MKT", "About to call API...")
+                val response = com.plantcure.ai.data.remote.GroqClient.api
+                    .sendMessage(
+                        auth = "Bearer $groqKey",
+                        request = com.plantcure.ai.data.remote.GroqChatRequest(
+                            model = "llama-3.3-70b-versatile",
+                            messages = listOf(
+                                com.plantcure.ai.data.remote.GroqMessage(
+                                    role = "user",
+                                    content = prompt
+                                )
+                            ),
+                            max_tokens = 600
+                        )
+                    )
+
+                Log.d("MKT", "API returned: ${response.code()}")
+
+                if (!response.isSuccessful) {
+                    val err = response.errorBody()
+                        ?.string() ?: "unknown"
+                    Log.e("MKT", "API error: $err")
+                    return@withTimeout Result.failure(
+                        Exception("Error ${response.code()}")
+                    )
+                }
+
+                // 5. Get raw content
+                Log.d("MKT", "Getting body...")
+                val body = response.body()
+                Log.d("MKT", "Body null: ${body == null}")
+
+                Log.d("MKT", "Getting choices...")
+                val raw = body?.choices?.firstOrNull()
+                    ?.message?.content?.trim()
+                Log.d("MKT", "Raw null: ${raw == null}")
+                Log.d("MKT", "Raw value: $raw")
+
+                if (raw.isNullOrBlank()) {
+                    Log.e("MKT", "Empty response")
+                    return@withTimeout Result.failure(
+                        Exception("Empty response")
+                    )
+                }
+
+                // 6. Clean and parse JSON
+                val clean = raw
+                    .replace("```json", "")
+                    .replace("```", "")
+                    .trim()
+
+                Log.d("MKT", "Clean JSON: $clean")
+
+                val today = SimpleDateFormat(
+                    "dd/MM/yyyy",
+                    Locale.getDefault()
+                ).format(Date())
+
+                val mapType = object : TypeToken<List<Map<String, Any>>>() {}.type
+                val maps: List<Map<String, Any>> =
+                    Gson().fromJson(clean, mapType)
+
+                Log.d("MKT", "Parsed ${maps.size} records")
+
+                val prices = maps.map { m ->
+                    MarketPrice(
+                        market = str(m, "market", "Local Mandi"),
+                        district = str(m, "district", "Unknown"),
+                        state = str(m, "state", state),
+                        commodity = commodity,
+                        minPrice = num(m, "minPrice", "min_price", "min"),
+                        maxPrice = num(m, "maxPrice", "max_price", "max"),
+                        modalPrice = num(m, "modalPrice", "modal_price", "modal", "price"),
+                        priceDate = today,
+                        trend = str(m, "trend", "stable")
+                    )
+                }
+
+                if (prices.isEmpty()) {
+                    return@withTimeout Result.failure(
+                        Exception("No prices parsed")
+                    )
+                }
+
+                // 7. Save to cache
+                cache[commodity] = Pair(
+                    System.currentTimeMillis(),
+                    prices
+                )
+
+                Log.d("MKT", "Success: ${prices.size}")
+                Result.success(prices)
+            }
+        } catch (e: TimeoutCancellationException) {
+            Log.e("MKT", "Request timed out!")
+            Result.failure(Exception("Request timed out. Try again."))
+        } catch (e: Exception) {
+            Log.e("MKT", "Exception: ${e.message}")
+            Result.failure(e)
+        }
     }
 
-    /**
-     * Get cached prices filtered by commodity AND state.
-     */
-    fun getPricesForCommodityAndState(commodity: String, state: String): Flow<List<MarketPrice>> {
-        return marketPriceDao.getPricesForCommodityAndState(commodity, state)
+    // Helper: get String from map with default fallback
+    private fun str(
+        map: Map<String, Any>,
+        key: String,
+        default: String
+    ): String = map[key]?.toString() ?: default
+
+    // Helper: get Float from map with fallbacks
+    private fun num(
+        map: Map<String, Any>,
+        vararg keys: String
+    ): Float {
+        for (key in keys) {
+            val v = map[key]
+            if (v != null) {
+                return (v as? Number)?.toFloat()
+                    ?: v.toString()
+                        .replace(",", "")
+                        .toFloatOrNull()
+                    ?: 0f
+            }
+        }
+        return 0f
     }
 
-    /**
-     * Get cached prices filtered by commodity, state AND district.
-     */
-    fun getPricesForCommodityStateAndDistrict(commodity: String, state: String, district: String): Flow<List<MarketPrice>> {
-        return marketPriceDao.getPricesForCommodityStateAndDistrict(commodity, state, district)
-    }
-
-    /**
-     * Parses the comprehensive list of states and districts from assets.
-     */
     fun getStatesAndDistricts(): Map<String, List<String>> {
         return try {
             val inputStream = context.assets.open("india_states_districts.json")
@@ -60,7 +204,6 @@ class MarketRepository @Inject constructor(
             inputStream.close()
             val jsonString = String(buffer, Charsets.UTF_8)
             
-            // The JSON has { "states": [ { "state": "Name", "districts": ["D1", "D2"] } ] }
             val root = org.json.JSONObject(jsonString)
             val statesArray = root.getJSONArray("states")
             
@@ -82,114 +225,4 @@ class MarketRepository @Inject constructor(
             emptyMap()
         }
     }
-
-    suspend fun refreshPrices(
-        commodity: String,
-        state: String? = null,
-        district: String? = null
-    ): Int {
-        val targetState = state ?: "Maharashtra"
-        val normalizedDistrict = if (district != null && district != "All Districts") {
-            normalizeDistrict(district)
-        } else {
-            district
-        }
-        
-        android.util.Log.d("PlantCure_Market", "refreshPrices: commodity=$commodity, state=$targetState, district=$district, normalized=$normalizedDistrict")
-
-        val lastCache = marketPriceDao.getLastCacheTimeForState(commodity, targetState)
-        val cacheDuration4Hrs = 4 * 60 * 60 * 1000L
-        if (lastCache != null && System.currentTimeMillis() - lastCache < cacheDuration4Hrs) {
-            android.util.Log.d("PlantCure_Market", "Using cached data (age: ${(System.currentTimeMillis() - lastCache) / 60000}min)")
-            return 200
-        }
-
-        val apiKey = BuildConfig.AGMARKNET_API_KEY
-        if (apiKey.isBlank()) {
-            return 401
-        }
-
-        return try {
-            val response = agmarknetApi.getPrices(
-                apiKey = apiKey,
-                commodity = commodity
-            )
-            
-            android.util.Log.d("PlantCure_Market", "URL called: ${response.raw().request.url}")
-            android.util.Log.d("PlantCure_Market", "Response code: ${response.code()}")
-            android.util.Log.d("PlantCure_Market", "Response body: ${response.errorBody()?.string()}")
-
-            if (response.isSuccessful) {
-                val records = response.body()?.records ?: emptyList()
-                
-                if (records.isNotEmpty()) {
-                    val today = java.text.SimpleDateFormat("dd/MM/yyyy", java.util.Locale.getDefault()).format(java.util.Date())
-                    val entities = records.map { record ->
-                        MarketPrice(
-                            market = record.market,
-                            district = record.district,
-                            state = record.state,
-                            commodity = record.commodity,
-                            minPrice = record.parseMinPrice(),
-                            maxPrice = record.parseMaxPrice(),
-                            modalPrice = record.parseModalPrice(),
-                            priceDate = record.arrival_date ?: today,
-                            trend = "stable"
-                        )
-                    }
-                    marketPriceDao.insertAll(entities)
-                    return 200
-                }
-                return 404 // No records
-            } else {
-                return response.code()
-            }
-        } catch (e: Exception) {
-            android.util.Log.e("PlantCure_Market", "Exception: ${e.message}", e)
-            return 0 // Network/Unknown error
-        }
-    }
-
-    /**
-     * Normalizes common spelling variations of Indian districts to match Agmarknet.
-     * First checks the GPS-to-Agmarknet map, then checks known spelling variations.
-     */
-    private fun normalizeDistrict(district: String): String {
-        // Try GPS-to-Agmarknet mapper first (handles Virar→Palghar etc.)
-        val mapped = DistrictNameMapper.normalize(district)
-        if (mapped != district) {
-            android.util.Log.d("PlantCure_Market", "DistrictNameMapper: '$district' → '$mapped'")
-            return mapped
-        }
-        
-        val d = district.trim().lowercase()
-        return when (d) {
-            "nasik" -> "Nashik"
-            "bengaluru", "bangalore" -> "Bangalore"
-            "mysuru", "mysore" -> "Mysore"
-            "belagavi", "belgaum" -> "Belgaum"
-            "tumakuru", "tumkur" -> "Tumkur"
-            "gurugram", "gurgaon" -> "Gurgaon"
-            "prayagraj", "allahabad" -> "Allahabad"
-            "varanasi", "banaras" -> "Varanasi"
-            "kanpur nagar", "kanpur" -> "Kanpur"
-            "pune", "poona" -> "Pune"
-            "mumbai", "bombay" -> "Mumbai"
-            "chennai", "madras" -> "Chennai"
-            "thiruvananthapuram", "trivandrum" -> "Thiruvananthapuram"
-            "kochi", "cochin", "ernakulam" -> "Ernakulam"
-            "gautam buddha nagar", "noida" -> "Gautam Buddha Nagar"
-            else -> district
-        }
-    }
-
-    /**
-     * Clear old cached prices.
-     */
-    suspend fun clearOldCache() {
-        val cutoff = System.currentTimeMillis() - (4 * 60 * 60 * 1000L) // 4 hours
-        marketPriceDao.deleteOldCache(cutoff)
-    }
-
-
 }

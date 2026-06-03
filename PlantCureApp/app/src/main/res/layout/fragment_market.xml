@@ -50,7 +50,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:text="These are real APMC wholesale auction prices from Government of India data."
+                    android:text="ℹ AI-estimated prices. Verify locally."
                     android:textSize="12sp"
                     android:textColor="@color/on_secondary_container" />
             </LinearLayout>
@@ -262,6 +262,14 @@
                 android:text="Try selecting a different district or crop."
                 android:textColor="@color/on_surface_variant" />
         </LinearLayout>
+
+        <!-- No API Key Overlay -->
+        <include
+            android:id="@+id/noApiKeyView"
+            layout="@layout/view_no_api_key"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" />
         
     </FrameLayout>
 
